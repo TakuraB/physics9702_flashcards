@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AS Level Physics Flashcards</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script>
+        MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            processEscapes: true
+          },
+          svg: {
+            fontCache: 'global'
+          }
+        };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+    <style>
+        /* Custom font */
+        body {
+            font-family: 'Inter', sans-serif;
+            overscroll-behavior: none; /* Prevents pull-to-refresh on mobile */
+        }
+        /* Styling for the flashcard flip animation */
+        .flashcard-container {
+            perspective: 1000px;
+        }
+        .flashcard {
+            width: 100%;
+            height: 350px; /* Increased height for more content */
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            cursor: pointer;
+        }
+        .flashcard.is-flipped {
+            transform: rotateY(180deg);
+        }
+        .flashcard-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column; /* Allow content to stack vertically */
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow-y: auto; /* Allow scrolling for long content */
+        }
+        .flashcard-front {
+            background-color: #ffffff; /* White front */
+            color: #1f2937; /* Dark gray text */
+        }
+        .flashcard-back {
+            background-color: #f3f4f6; /* Light gray back */
+            color: #1f2937; /* Dark gray text */
+            transform: rotateY(180deg);
+        }
+        .flashcard-content h3 {
+            font-size: 1.25rem; /* Tailwind text-xl */
+            font-weight: 600; /* Tailwind semibold */
+            margin-bottom: 0.5rem; /* Tailwind mb-2 */
+        }
+        .flashcard-content p, .flashcard-content ul {
+            font-size: 0.875rem; /* Tailwind text-sm */
+            line-height: 1.4; /* Increased line height for readability */
+            text-align: left; /* Align text to the left */
+            width: 100%; /* Ensure text takes full width */
+        }
+        .flashcard-content ul {
+            list-style-type: disc;
+            padding-left: 1.25rem; /* Tailwind pl-5 */
+        }
+        .flashcard-content li {
+            margin-bottom: 0.25rem; /* Tailwind mb-1 */
+        }
+        /* Custom scrollbar for flashcard content */
+        .flashcard-face::-webkit-scrollbar {
+            width: 8px;
+        }
+        .flashcard-face::-webkit-scrollbar-track {
+            background: #e5e7eb; /* Tailwind gray-200 */
+            border-radius: 10px;
+        }
+        .flashcard-face::-webkit-scrollbar-thumb {
+            background: #9ca3af; /* Tailwind gray-400 */
+            border-radius: 10px;
+        }
+        .flashcard-face::-webkit-scrollbar-thumb:hover {
+            background: #6b7280; /* Tailwind gray-500 */
+        }
+
+        /* Styling for buttons */
+        .btn {
+            padding: 0.75rem 1.5rem; /* Tailwind py-3 px-6 */
+            border-radius: 0.5rem; /* Tailwind rounded-lg */
+            font-weight: 600; /* Tailwind semibold */
+            transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .btn:active {
+            transform: translateY(1px);
+        }
+        .btn-primary {
+            background-color: #3b82f6; /* Tailwind blue-500 */
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #2563eb; /* Tailwind blue-600 */
+        }
+        .btn-secondary {
+            background-color: #6b7280; /* Tailwind gray-500 */
+            color: white;
+        }
+        .btn-secondary:hover {
+            background-color: #4b5563; /* Tailwind gray-600 */
+        }
+        .btn-success {
+            background-color: #10b981; /* Tailwind green-500 */
+            color: white;
+        }
+        .btn-success:hover {
+            background-color: #059669; /* Tailwind green-600 */
+        }
+        .btn-danger {
+            background-color: #ef4444; /* Tailwind red-500 */
+            color: white;
+        }
+        .btn-danger:hover {
+            background-color: #dc2626; /* Tailwind red-600 */
+        }
+        .btn-icon {
+            padding: 0.5rem; /* Tailwind p-2 */
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 50;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6); /* Dimmed background */
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #ffffff;
+            margin: auto;
+            padding: 2rem; /* Tailwind p-8 */
+            border-radius: 0.75rem; /* Tailwind rounded-xl */
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); /* Tailwind shadow-xl */
+            width: 90%;
+            max-width: 500px; /* Max width for the modal */
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem; /* Tailwind mb-6 */
+            padding-bottom: 1rem; /* Tailwind pb-4 */
+            border-bottom: 1px solid #e5e7eb; /* Tailwind border-gray-200 */
+        }
+        .modal-title {
+            font-size: 1.5rem; /* Tailwind text-2xl */
+            font-weight: 700; /* Tailwind bold */
+            color: #111827; /* Tailwind gray-900 */
+        }
+        .close-button {
+            color: #9ca3af; /* Tailwind gray-400 */
+            font-size: 1.75rem; /* Tailwind text-3xl */
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close-button:hover,
+        .close-button:focus {
+            color: #1f2937; /* Tailwind gray-800 */
+            text-decoration: none;
+        }
+        .topic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem; /* Tailwind gap-4 */
+        }
+        .topic-button {
+            background-color: #e5e7eb; /* Tailwind gray-200 */
+            color: #374151; /* Tailwind gray-700 */
+            padding: 0.75rem; /* Tailwind p-3 */
+            border-radius: 0.5rem; /* Tailwind rounded-lg */
+            text-align: center;
+            font-weight: 500; /* Tailwind medium */
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+        }
+        .topic-button:hover {
+            background-color: #d1d5db; /* Tailwind gray-300 */
+            color: #1f2937; /* Tailwind gray-800 */
+        }
+        .topic-button.active {
+            background-color: #3b82f6; /* Tailwind blue-500 */
+            color: white;
+        }
+
+        /* Progress bar */
+        .progress-bar-container {
+            width: 100%;
+            background-color: #e5e7eb; /* Tailwind gray-200 */
+            border-radius: 0.5rem; /* Tailwind rounded-lg */
+            overflow: hidden;
+            margin-top: 0.5rem; /* Tailwind mt-2 */
+        }
+        .progress-bar {
+            height: 10px; /* Tailwind h-2.5 */
+            background-color: #10b981; /* Tailwind green-500 */
+            border-radius: 0.5rem; /* Tailwind rounded-lg */
+            transition: width 0.3s ease-in-out;
+        }
+
+        /* Message box for alerts */
+        .message-box {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #1f2937; /* Tailwind gray-800 */
+            color: white;
+            padding: 1rem 1.5rem; /* Tailwind p-4 px-6 */
+            border-radius: 0.5rem; /* Tailwind rounded-lg */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            transform: translateX(-50%) translateY(20px);
+        }
+        .message-box.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 flex flex-col items-center min-h-screen p-4 md:p-8">
+
+    <header class="w-full max-w-3xl mb-6 md:mb-10 text-center">
+        <h1 class="text-3xl md:text-4xl font-bold text-blue-600">AS Level Physics Flashcards</h1>
+        <p class="text-slate-600 mt-1 md:mt-2">Master the 9702 Syllabus</p>
+    </header>
+
+    <div class="w-full max-w-3xl mb-4 flex flex-col sm:flex-row justify-between items-center gap-3">
+        <button id="selectTopicBtn" class="btn btn-primary w-full sm:w-auto">
+            <i class="fas fa-layer-group mr-2"></i>Select Topic
+        </button>
+        <div class="flex gap-2">
+            <button id="shuffleBtn" class="btn btn-secondary btn-icon" title="Shuffle Cards">
+                <i class="fas fa-random"></i>
+            </button>
+            <button id="resetProgressBtn" class="btn btn-danger btn-icon" title="Reset Progress for this Topic">
+                <i class="fas fa-undo"></i>
+            </button>
+        </div>
+    </div>
+
+    <main class="w-full max-w-xl">
+        <div id="flashcardStats" class="text-sm text-slate-600 mb-2 text-center">
+            Select a topic to begin.
+        </div>
+        <div id="masteredProgressContainer" class="progress-bar-container mb-4 hidden">
+            <div id="masteredProgressBar" class="progress-bar"></div>
+        </div>
+
+        <div id="flashcardContainer" class="flashcard-container">
+            <div id="flashcard" class="flashcard">
+                <div class="flashcard-face flashcard-front">
+                    <div class="flashcard-content">
+                        <h3 id="cardFrontTitle">Welcome!</h3>
+                        <p id="cardFrontContent">Select a topic to start learning.</p>
+                    </div>
+                </div>
+                <div class="flashcard-face flashcard-back">
+                    <div class="flashcard-content">
+                        <h3 id="cardBackTitle">Answer</h3>
+                        <div id="cardBackContent"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="navigationButtons" class="mt-6 flex justify-between items-center hidden">
+            <button id="prevCardBtn" class="btn btn-secondary">
+                <i class="fas fa-arrow-left mr-2"></i>Previous
+            </button>
+            <button id="markMasteredBtn" class="btn btn-success">
+                <i class="fas fa-check-circle mr-2"></i>Mastered
+            </button>
+            <button id="nextCardBtn" class="btn btn-primary">
+                Next<i class="fas fa-arrow-right ml-2"></i>
+            </button>
+        </div>
+    </main>
+
+    <div id="topicModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Select a Topic</h2>
+                <span class="close-button" id="closeModalBtn">&times;</span>
+            </div>
+            <div id="topicGrid" class="topic-grid">
+                </div>
+        </div>
+    </div>
+
+    <div id="messageBox" class="message-box"></div>
+
+    <script>
+        // --- Flashcard Data ---
+        // This data is based on the AS Level Physics syllabus (9702)
+        const flashcardData = [
+            {
+                topic: "1. Physical Quantities & Units",
+                cards: [
+                    { front: "What does a physical quantity consist of?", back: "A numerical magnitude and a unit." },
+                    { front: "List the SI base quantities and their units.", back: "Mass (kg), Length (m), Time (s), Current (A), Temperature (K)." },
+                    { front: "How are derived units expressed?", back: "As products or quotients of SI base units." },
+                    { front: "What is homogeneity of physical equations?", back: "Ensuring that the units on both sides of an equation are the same. SI base units are used to check this." },
+                    { front: "Give examples of SI prefixes.", back: "pico (p, $10^{-12}$), nano (n, $10^{-9}$), micro ($\\mu$, $10^{-6}$), milli (m, $10^{-3}$), kilo (k, $10^3$), mega (M, $10^6$), giga (G, $10^9$), tera (T, $10^{12}$)." },
+                    { front: "Differentiate systematic and random errors.", back: "Systematic errors: Consistent errors affecting accuracy (e.g., zero error). Random errors: Unpredictable fluctuations affecting precision." },
+                    { front: "Explain precision vs. accuracy.", back: "Precision: Closeness of repeated measurements to each other. Accuracy: Closeness of a measurement to the true value." },
+                    { front: "How is uncertainty in a derived quantity assessed?", back: "By simple addition of absolute uncertainties (for sum/difference) or percentage uncertainties (for product/quotient)." },
+                    { front: "Distinguish scalar and vector quantities.", back: "Scalar: Magnitude only (e.g., speed, mass, energy). Vector: Magnitude and direction (e.g., velocity, force, displacement)." },
+                    { front: "How can a vector be represented?", back: "As two perpendicular components. Coplanar vectors can be added and subtracted." }
+                ]
+            },
+            {
+                topic: "2. Kinematics",
+                cards: [
+                    { front: "Define: Distance, Displacement, Speed, Velocity, Acceleration.", back: "Distance: Total path length. Displacement: Change in position in a specific direction. Speed: Rate of change of distance. Velocity: Rate of change of displacement. Acceleration: Rate of change of velocity." },
+                    { front: "How is displacement found from a velocity-time graph?", back: "Area under the velocity-time graph." },
+                    { front: "How is velocity found from a displacement-time graph?", back: "Gradient of the displacement-time graph." },
+                    { front: "How is acceleration found from a velocity-time graph?", back: "Gradient of the velocity-time graph." },
+                    { front: "Write one equation for uniformly accelerated motion.", back: "$v = u + at$ (where $v$=final velocity, $u$=initial velocity, $a$=acceleration, $t$=time)." },
+                    { front: "Write another equation for uniformly accelerated motion.", back: "$s = ut + \\frac{1}{2}at^2$ (where $s$=displacement)." },
+                    { front: "Write a third equation for uniformly accelerated motion.", back: "$v^2 = u^2 + 2as$." },
+                    { front: "Describe an experiment to determine 'g' (acceleration of free fall).", back: "Using a falling object (e.g., ball bearing released from an electromagnet) and measuring time taken to fall a known distance. Use $s = ut + \\frac{1}{2}at^2$ with $u=0$ and $a=g$." },
+                    { front: "Describe motion with uniform velocity in one direction and uniform acceleration in a perpendicular direction.", back: "This describes projectile motion (e.g., a ball thrown horizontally). The horizontal motion is constant velocity, and the vertical motion is constant acceleration due to gravity." }
+                ]
+            },
+            {
+                topic: "3. Dynamics",
+                cards: [
+                    { front: "What is mass?", back: "The property of an object that resists change in motion. A measure of its inertia." },
+                    { front: "State Newton's Second Law (equation).", back: "$F = ma$. Resultant force is directly proportional to acceleration, and in the same direction." },
+                    { front: "Define linear momentum.", back: "Product of mass and velocity ($p = mv$). It is a vector quantity." },
+                    { front: "Define force in terms of momentum.", back: "Force is the rate of change of momentum ($F = \\Delta p / \\Delta t$)." },
+                    { front: "State Newton's First Law of Motion.", back: "An object stays at rest or in uniform motion in a straight line unless a resultant external force acts on it." },
+                    { front: "State Newton's Third Law of Motion.", back: "For every action, there is an equal and opposite reaction. (Forces occur in pairs, acting on different objects)." },
+                    { front: "Define weight.", back: "The effect of a gravitational field on a mass. Weight = mass $\\times$ acceleration of free fall ($W = mg$)." },
+                    { front: "Describe frictional forces and viscous/drag forces.", back: "Frictional forces oppose motion between surfaces in contact. Viscous/drag forces (like air resistance) oppose motion through a fluid and typically increase with speed." },
+                    { front: "What is terminal velocity?", back: "The constant velocity reached by an object falling through a fluid when the drag force equals the gravitational force (or driving force), resulting in zero net force and zero acceleration." },
+                    { front: "State the principle of conservation of momentum.", back: "In a closed system (no external forces), the total momentum remains constant before and after an interaction (e.g., collision)." },
+                    { front: "Differentiate elastic and inelastic collisions.", back: "Elastic: Total kinetic energy is conserved; relative speed of approach equals relative speed of separation. Inelastic: Kinetic energy is not conserved (some is transformed). Momentum is conserved in both." }
+                ]
+            },
+            {
+                topic: "4. Forces, Density & Pressure",
+                cards: [
+                    { front: "What is the centre of gravity?", back: "The single point where the entire weight of an object may be considered to act." },
+                    { front: "Define and give the formula for the moment of a force.", back: "Moment = Force $\\times$ perpendicular distance from the pivot to the line of action of the force. ($M = Fd$)" },
+                    { front: "What is a couple?", back: "A pair of equal and opposite forces, not acting along the same line, that produces rotation only (no translational motion)." },
+                    { front: "Define and give the formula for the torque of a couple.", back: "Torque = one of the forces $\\times$ perpendicular distance between the forces. ($T = Fd$)" },
+                    { front: "State the principle of moments.", back: "For a system in rotational equilibrium, the sum of clockwise moments about any point equals the sum of anticlockwise moments about that same point." },
+                    { front: "What are the conditions for equilibrium?", back: "No resultant force and no resultant torque acting on the system." },
+                    { front: "How can coplanar forces in equilibrium be represented?", back: "By a closed vector triangle (or polygon)." },
+                    { front: "Define density and give its formula.", back: "Density ($\rho$) = Mass ($m$) / Volume ($V$). Unit: kg/m³." },
+                    { front: "Define pressure and give its formula.", back: "Pressure ($p$) = Force ($F$) / Area ($A$). Unit: Pascal (Pa) or N/m²." },
+                    { front: "State the equation for hydrostatic pressure.", back: "$\\Delta p = \\rho g \\Delta h$, where $\\rho$ is fluid density, $g$ is acceleration of free fall, $\\Delta h$ is change in depth." },
+                    { front: "What causes upthrust on an object in a fluid?", back: "The difference in hydrostatic pressure between the lower and upper surfaces of the object." },
+                    { front: "State Archimedes' principle (equation for upthrust).", back: "Upthrust $F = \\rho gV$, where $\\rho$ is fluid density, $g$ is acceleration of free fall, and $V$ is the volume of fluid displaced by the object." }
+                ]
+            },
+            {
+                topic: "5. Work, Energy & Power",
+                cards: [
+                    { front: "Define work done by a force.", back: "Work done = Force $\\times$ displacement in the direction of the force ($W = Fs \\cos\\theta$)." },
+                    { front: "State the principle of conservation of energy.", back: "Energy cannot be created or destroyed, only transferred from one form to another. The total energy in a closed system remains constant." },
+                    { front: "Define efficiency of a system.", back: "Efficiency = (Useful energy output / Total energy input) $\\times$ 100% OR (Useful power output / Total power input) $\\times$ 100%." },
+                    { front: "Define power.", back: "Power is the rate at which work is done or energy is transferred ($P = W/t$ or $P = E/t$)." },
+                    { front: "Give an alternative formula for power involving force and velocity.", back: "$P = Fv$ (Power = Force $\\times$ velocity in the direction of the force)." },
+                    { front: "Derive the formula for gravitational potential energy change ($\Delta E_p$) in a uniform field.", back: "Work done against gravity = Force $\\times$ height = $mg \\Delta h$. So, $\Delta E_p = mg\\Delta h$." },
+                    { front: "State the formula for kinetic energy ($E_k$).", back: "$E_k = \\frac{1}{2}mv^2$." },
+                    { front: "How can $E_k = \\frac{1}{2}mv^2$ be derived using equations of motion?", back: "Start with $W = Fs$. Substitute $F=ma$. Use $v^2 = u^2 + 2as$. If $u=0$, $s = v^2/(2a)$. So $W = ma(v^2/(2a)) = \\frac{1}{2}mv^2$. This work done is the kinetic energy." }
+                ]
+            },
+            // --- NEWLY ADDED TOPICS START HERE ---
+            {
+                topic: "6. Deformation of Solids",
+                cards: [
+                    { front: "How is deformation caused in solids (one dimension)?", back: "By tensile (stretching) or compressive (squashing) forces." },
+                    { front: "Define: Load, Extension, Compression, Limit of Proportionality.", back: "Load: Applied force. Extension: Increase in length. Compression: Decrease in length. Limit of Proportionality: Point beyond which Hooke's Law is no longer obeyed (force is no longer directly proportional to extension)." },
+                    { front: "State Hooke's Law.", back: "Force is directly proportional to extension (or compression) up to the limit of proportionality ($F = kx$)." },
+                    { front: "Define and give the formula for the spring constant ($k$).", back: "Spring constant ($k$) is the force per unit extension. $k = F/x$. Unit: N/m." },
+                    { front: "Define: Stress, Strain, Young Modulus.", back: "Stress ($\\sigma$): Force per unit cross-sectional area ($\\sigma = F/A$). Strain ($\\epsilon$): Extension per unit original length ($\\epsilon = x/L_0$). Young Modulus ($E$): Ratio of stress to strain ($E = \\sigma/\\epsilon$), a measure of stiffness." },
+                    { front: "Outline an experiment to determine the Young modulus of a metal wire.", back: "Measure original length ($L_0$) and diameter (for area $A$). Apply known loads ($F$) and measure corresponding extensions ($x$). Plot $F$ vs $x$ (or stress vs strain). Gradient of linear region gives $k$ (or $E$). $E = (F/A) / (x/L_0)$." },
+                    { front: "Define: Elastic Deformation, Plastic Deformation, Elastic Limit.", back: "Elastic Deformation: Object returns to its original shape when the deforming force is removed. Plastic Deformation: Object is permanently deformed. Elastic Limit: Point beyond which plastic deformation occurs." },
+                    { front: "What does the area under a force-extension graph represent?", back: "The work done in deforming the material." },
+                    { front: "State the formula for elastic potential energy ($E_p$) stored in a material deformed within its limit of proportionality.", back: "$E_p = \\frac{1}{2}Fx = \\frac{1}{2}kx^2$." }
+                ]
+            },
+            {
+                topic: "7. Waves",
+                cards: [
+                    { front: "What is wave motion?", back: "Transfer of energy without net transfer of matter, illustrated by vibrations in ropes, springs, and ripple tanks." },
+                    { front: "Define: Displacement, Amplitude, Phase Difference, Period, Frequency, Wavelength, Speed of a wave.", back: "Displacement: Distance of a point from its equilibrium. Amplitude: Max displacement. Phase Difference: Fraction of a cycle one oscillation leads/lags another. Period (T): Time for one oscillation. Frequency (f): Oscillations per unit time ($f=1/T$). Wavelength ($\\lambda$): Distance between successive points in phase. Speed (v): Distance wave travels per unit time." },
+                    { front: "How can a Cathode-Ray Oscilloscope (CRO) determine frequency and amplitude?", back: "Time-base setting helps determine Period (T), then $f=1/T$. Y-gain (voltage sensitivity) setting helps determine amplitude from the vertical displacement on screen." },
+                    { front: "State the wave equation.", back: "$v = f\\lambda$ (speed = frequency $\\times$ wavelength)." },
+                    { front: "How is energy related to progressive waves?", back: "Energy is transferred by a progressive wave in the direction of wave propagation." },
+                    { front: "Define intensity of a wave and its relation to amplitude.", back: "Intensity = Power / Area ($I = P/A$). For a progressive wave, Intensity is proportional to (amplitude)$^2$ ($I \\propto A^2$)." },
+                    { front: "Compare transverse and longitudinal waves.", back: "Transverse: Oscillations are perpendicular to energy transfer direction (e.g., light, water surface waves). Longitudinal: Oscillations are parallel to energy transfer direction (e.g., sound)." },
+                    { front: "Explain the Doppler effect for sound waves (moving source, stationary observer).", back: "Observed frequency ($f_o$) is different from source frequency ($f_s$) when source moves relative to observer. $f_o = f_s \\frac{v}{(v \\pm v_s)}$ (+ if source moves away, - if source moves towards; $v$ is speed of sound, $v_s$ is speed of source)." },
+                    { front: "What are key properties of all electromagnetic (EM) waves?", back: "All are transverse waves, travel with speed $c$ (approx $3 \\times 10^8$ m/s) in free space." },
+                    { front: "List principal regions of the EM spectrum from longest to shortest wavelength.", back: "Radio waves, Microwaves, Infrared, Visible light, Ultraviolet, X-rays, Gamma rays." },
+                    { front: "What is the approximate wavelength range for visible light in free space?", back: "400 nm (violet) to 700 nm (red)." },
+                    { front: "What is polarisation?", back: "A phenomenon associated with transverse waves where oscillations are restricted to one plane (the plane of polarisation)." },
+                    { front: "State Malus's Law for polarised light passing through a polarising filter.", back: "$I = I_0 \\cos^2\\theta$, where $I_0$ is initial intensity of plane-polarised light, $I$ is transmitted intensity, $\\theta$ is angle between polarisation plane and filter's transmission axis." }
+                ]
+            },
+            {
+                topic: "8. Superposition",
+                cards: [
+                    { front: "State the principle of superposition.", back: "When two or more waves meet at a point, the resultant displacement is the vector sum of the individual displacements of the waves." },
+                    { front: "How are stationary waves formed?", back: "By the superposition of two progressive waves of the same frequency, amplitude, and speed, travelling in opposite directions." },
+                    { front: "Describe experiments demonstrating stationary waves.", back: "Using microwaves (reflector and detector), stretched strings (vibrator and fixed end), air columns (tuning fork over a tube with water)." },
+                    { front: "Explain nodes and antinodes in a stationary wave.", back: "Nodes: Points of zero amplitude (destructive interference). Antinodes: Points of maximum amplitude (constructive interference)." },
+                    { front: "How can wavelength be determined from a stationary wave pattern?", back: "Distance between two adjacent nodes (or antinodes) is $\\lambda/2$. Distance between a node and adjacent antinode is $\\lambda/4$." },
+                    { front: "What is diffraction?", back: "The spreading of waves as they pass through an aperture or around an obstacle." },
+                    { front: "When is diffraction most significant?", back: "When the size of the gap or obstacle is comparable to the wavelength of the wave." },
+                    { front: "Define interference and coherence.", back: "Interference: Superposition of waves from coherent sources, resulting in a pattern of constructive and destructive interference. Coherence: Sources have a constant phase difference and the same frequency (and wavelength)." },
+                    { front: "What conditions are required for observable two-source interference fringes?", back: "Sources must be coherent. For light, sources must be monochromatic (single wavelength) and usually have similar amplitudes." },
+                    { front: "State the equation for double-slit interference using light.", back: "$\\lambda = \\frac{ax}{D}$, where $\\lambda$ is wavelength, $a$ is slit separation, $x$ is fringe separation (distance between centres of adjacent bright fringes), $D$ is distance from slits to screen." },
+                    { front: "State the diffraction grating equation.", back: "$d \\sin\\theta = n\\lambda$, where $d$ is the grating spacing (distance between adjacent slits), $\\theta$ is the angle of diffraction for the $n^{th}$ order maximum, $n$ is the order number (0, 1, 2,...), $\\lambda$ is the wavelength." },
+                    { front: "How is a diffraction grating used to determine the wavelength of light?", back: "Shine monochromatic light through the grating. Measure the angles ($\\theta$) for different orders ($n$) of maxima. Use $d \\sin\\theta = n\\lambda$ to calculate $\\lambda$. ($d = 1/\text{lines per unit length}$)." }
+                ]
+            },
+            {
+                topic: "9. Electricity",
+                cards: [
+                    { front: "What is an electric current?", back: "A flow of charge carriers (e.g., electrons in metals, ions in electrolytes). Charge on carriers is quantised (multiples of elementary charge $e$)." },
+                    { front: "State the equation relating charge, current, and time.", back: "$Q = It$ (Charge = Current $\\times$ Time)." },
+                    { front: "Give the expression for current in a conductor in terms of charge carriers.", back: "$I = Anvq$, where $A$ is cross-sectional area, $n$ is number density of charge carriers, $v$ is mean drift velocity, $q$ is charge on each carrier." },
+                    { front: "Define potential difference (p.d.) across a component.", back: "Energy transferred per unit charge passing through the component ($V = W/Q$ or $V = E/Q$)." },
+                    { front: "List three equations for electrical power.", back: "$P = VI$, $P = I^2R$, $P = V^2/R$." },
+                    { front: "Define resistance.", back: "Ratio of potential difference across a component to the current through it ($R = V/I$)." },
+                    { front: "Sketch I-V characteristic for: a) Metallic conductor (const. temp), b) Semiconductor diode, c) Filament lamp.", back: "a) Straight line through origin. b) Negligible current in reverse bias, current rises sharply in forward bias beyond threshold voltage. c) Curve starting from origin, gradient decreases as V (and I) increase (resistance increases)." },
+                    { front: "Why does the resistance of a filament lamp increase with current?", back: "As current increases, temperature of filament increases, causing increased lattice vibrations, which impede electron flow more, thus increasing resistance." },
+                    { front: "State Ohm's Law.", back: "Current through a conductor is directly proportional to the potential difference across it, provided physical conditions (like temperature) remain constant." },
+                    { front: "State the equation for resistivity.", back: "$R = \\frac{\\rho L}{A}$, where $\\rho$ is resistivity, $L$ is length, $A$ is cross-sectional area." },
+                    { front: "How does resistance of an LDR change with light intensity?", back: "Resistance of a Light-Dependent Resistor (LDR) decreases as light intensity increases." },
+                    { front: "How does resistance of a (NTC) thermistor change with temperature?", back: "Resistance of a Negative Temperature Coefficient (NTC) thermistor decreases as temperature increases." }
+                ]
+            },
+            {
+                topic: "10. D.C. Circuits",
+                cards: [
+                    { front: "Define electromotive force (e.m.f.) of a source.", back: "Energy transferred per unit charge in driving charge around a complete circuit by the source. (Work done by source per unit charge)." },
+                    { front: "Distinguish between e.m.f. and p.d. in terms of energy.", back: "e.m.f. is energy supplied to charges by a source (energy gained per unit charge). p.d. is energy transferred by charges as they pass through a component (energy lost per unit charge)." },
+                    { front: "What is internal resistance of a source?", back: "The resistance within the source of e.m.f. itself, which causes energy dissipation within the source when current flows." },
+                    { front: "How does internal resistance affect terminal potential difference?", back: "Terminal p.d. ($V$) across the source is $V = E - Ir$, where $E$ is e.m.f., $I$ is current, and $r$ is internal resistance. $V < E$ when current flows." },
+                    { front: "State Kirchhoff's first law and its basis.", back: "The sum of currents entering a junction equals the sum of currents leaving it. Based on conservation of charge." },
+                    { front: "State Kirchhoff's second law and its basis.", back: "In any closed loop in a circuit, the algebraic sum of e.m.f.s equals the algebraic sum of potential differences. Based on conservation of energy." },
+                    { front: "Formula for combined resistance of resistors in series?", back: "$R_T = R_1 + R_2 + R_3 + ...$" },
+                    { front: "Formula for combined resistance of resistors in parallel?", back: "$\\frac{1}{R_T} = \\frac{1}{R_1} + \\frac{1}{R_2} + \\frac{1}{R_3} + ...$" },
+                    { front: "What is the principle of a potential divider circuit?", back: "To provide a fraction of a source voltage as an output. The voltage is divided across series resistors in proportion to their resistances ($V_{out} = V_{in} \\times \\frac{R_2}{R_1+R_2}$ for output across $R_2$)." },
+                    { front: "What is a potentiometer used for?", back: "Comparing potential differences accurately, often using a null method (where a galvanometer reads zero current)." },
+                    { front: "How are thermistors/LDRs used in potential dividers?", back: "To create a potential difference that varies with temperature (thermistor) or light intensity (LDR), often used in sensor circuits." }
+                ]
+            },
+            // --- END OF NEWLY ADDED TOPICS ---
+            {
+                topic: "11. Particle Physics",
+                cards: [
+                    { front: "What did the $\\alpha$-particle scattering experiment infer?", back: "The existence of a small, dense, positively charged nucleus within the atom." },
+                    { front: "Describe the simple model for the nuclear atom.", back: "Protons and neutrons in a central nucleus, with orbital electrons." },
+                    { front: "Distinguish between nucleon number and proton number.", back: "Nucleon number (A): Total protons + neutrons. Proton number (Z): Number of protons (defines element)." },
+                    { front: "What are isotopes?", back: "Forms of the same element with different numbers of neutrons (same Z, different A)." },
+                    { front: "Write the nuclide notation.", back: "$^A_Z X$, e.g., $^{238}_{92}U$." },
+                    { front: "What is conserved in nuclear processes?", back: "Nucleon number and charge." },
+                    { front: "Describe $\\alpha$, $\\beta^-$, $\\beta^+$, and $\\gamma$ radiations.", back: "$\\alpha$: $^4_2He$ nucleus (+2e). $\\beta^-$: electron ($-e$). $\\beta^+$: positron ($+e$). $\\gamma$: high-energy photon (0 charge)." },
+                    { front: "What is an antiparticle?", back: "Same mass, opposite charge to its particle. E.g., positron is antiparticle of electron." },
+                    { front: "What is produced during $\\beta^-$ and $\\beta^+$ decay besides the beta particle?", back: "$\\beta^-$ decay: (electron) antineutrino ($\bar{\\nu}_e$). $\\beta^+$ decay: (electron) neutrino ($\nu_e$)." },
+                    { front: "Why do $\\alpha$-particles have discrete energies but $\\beta$-particles have a continuous range?", back: "$\\beta$-decay involves emission of an (anti)neutrino which shares energy with the $\\beta$-particle, leading to a continuous energy spectrum for $\\beta$-particles." },
+                    { front: "Represent $\\alpha$-decay of $^{238}_{92}U$.", back: "$^{238}_{92}U \\rightarrow ^{234}_{90}Th + ^4_2\\alpha$." },
+                    { front: "What is the unified atomic mass unit (u)?", back: "Unit of mass, approx $1.661 \\times 10^{-27}$ kg. $1u$ is 1/12th the mass of a carbon-12 atom." },
+                    { front: "What is a quark? Name the six flavours.", back: "A fundamental particle. Flavours: up (u), down (d), strange (s), charm (c), top (t), bottom (b)." },
+                    { front: "What are the charges of up and down quarks?", back: "Up (u): $+2/3 e$. Down (d): $-1/3 e$. Antiquarks have opposite charges." },
+                    { front: "What is the quark composition of a proton and a neutron?", back: "Proton (p): uud. Neutron (n): udd." },
+                    { front: "What is a hadron? Name the two types.", back: "Particle made of quarks. Baryon (3 quarks, e.g., p, n) or Meson (1 quark, 1 antiquark)." },
+                    { front: "Describe quark changes during $\\beta^-$ and $\\beta^+$ decay.", back: "$\\beta^-$: $d \\rightarrow u + e^- + \bar{\\nu}_e$. $\\beta^+$: $u \\rightarrow d + e^+ + \nu_e$." },
+                    { front: "What are leptons?", back: "Fundamental particles not experiencing strong nuclear force (e.g., electrons, neutrinos)." }
+                ]
+            }
+        ];
+
+        // --- DOM Elements ---
+        const flashcardElement = document.getElementById('flashcard');
+        const cardFrontTitleElement = document.getElementById('cardFrontTitle');
+        const cardFrontContentElement = document.getElementById('cardFrontContent');
+        const cardBackTitleElement = document.getElementById('cardBackTitle');
+        const cardBackContentElement = document.getElementById('cardBackContent');
+        const prevCardBtn = document.getElementById('prevCardBtn');
+        const nextCardBtn = document.getElementById('nextCardBtn');
+        const markMasteredBtn = document.getElementById('markMasteredBtn');
+        const navigationButtons = document.getElementById('navigationButtons');
+        const flashcardStatsElement = document.getElementById('flashcardStats');
+        const selectTopicBtn = document.getElementById('selectTopicBtn');
+        const topicModal = document.getElementById('topicModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const topicGridElement = document.getElementById('topicGrid');
+        const shuffleBtn = document.getElementById('shuffleBtn');
+        const resetProgressBtn = document.getElementById('resetProgressBtn');
+        const masteredProgressBar = document.getElementById('masteredProgressBar');
+        const masteredProgressContainer = document.getElementById('masteredProgressContainer');
+        const messageBox = document.getElementById('messageBox');
+
+        // --- App State ---
+        let currentTopic = null;
+        let currentCards = [];
+        let currentIndex = 0;
+        let masteredCards = {}; // Stores mastered cards for each topic: { "topicName": [cardFrontIdentifier] }
+
+        // --- Functions ---
+
+        // Initialize: Load topics into modal
+        function init() {
+            topicGridElement.innerHTML = ''; // Clear existing buttons before adding new ones
+            flashcardData.forEach(topicObj => {
+                const button = document.createElement('button');
+                button.classList.add('topic-button');
+                button.textContent = topicObj.topic;
+                button.addEventListener('click', () => selectTopic(topicObj.topic));
+                topicGridElement.appendChild(button);
+            });
+            loadProgress(); // Load progress from localStorage
+        }
+
+        // Show a temporary message
+        function showMessage(text, duration = 3000) {
+            messageBox.textContent = text;
+            messageBox.classList.add('show');
+            setTimeout(() => {
+                messageBox.classList.remove('show');
+            }, duration);
+        }
+
+        // Select a topic
+        function selectTopic(topicName) {
+            currentTopic = topicName;
+            const topicObj = flashcardData.find(t => t.topic === topicName);
+            if (topicObj) {
+                currentCards = [...topicObj.cards]; // Create a mutable copy
+                currentIndex = 0;
+                if (!masteredCards[currentTopic]) {
+                    masteredCards[currentTopic] = [];
+                }
+                updateTopicButtons();
+                displayCard();
+                navigationButtons.classList.remove('hidden');
+                masteredProgressContainer.classList.remove('hidden');
+                topicModal.style.display = "none";
+                showMessage(`Topic selected: ${topicName}`);
+            }
+        }
+
+        // Update active state of topic buttons in modal
+        function updateTopicButtons() {
+            const buttons = topicGridElement.querySelectorAll('.topic-button');
+            buttons.forEach(btn => {
+                if (btn.textContent === currentTopic) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+
+        // Display current card
+        function displayCard() {
+            if (!currentCards.length || !currentTopic) { // Added check for currentTopic
+                cardFrontTitleElement.textContent = "Welcome!";
+                cardFrontContentElement.innerHTML = "<p>Select a topic to start learning.</p>";
+                cardBackTitleElement.textContent = "Answer";
+                cardBackContentElement.innerHTML = "";
+                flashcardStatsElement.textContent = "Select a topic to begin.";
+                navigationButtons.classList.add('hidden');
+                masteredProgressContainer.classList.add('hidden');
+                 if (window.MathJax) { // Typeset the welcome message if needed
+                    MathJax.typesetPromise([cardFrontContentElement]).catch(function (err) {
+                        console.error('MathJax typesetting error: ' + err.message);
+                    });
+                }
+                return;
+            }
+
+            const card = currentCards[currentIndex];
+            cardFrontTitleElement.textContent = "Question:";
+            cardFrontContentElement.innerHTML = card.front;
+            cardBackTitleElement.textContent = "Answer:";
+            cardBackContentElement.innerHTML = card.back;
+
+            if (window.MathJax) {
+                MathJax.typesetPromise([cardFrontContentElement, cardBackContentElement]).catch(function (err) {
+                    console.error('MathJax typesetting error: ' + err.message);
+                });
+            }
+
+            flashcardElement.classList.remove('is-flipped');
+            updateStats();
+            updateMarkMasteredButton();
+            saveProgress();
+        }
+
+        // Update card statistics display
+        function updateStats() {
+            if (!currentTopic || !currentCards.length) {
+                 flashcardStatsElement.textContent = "Select a topic to begin.";
+                 masteredProgressContainer.classList.add('hidden');
+                return;
+            }
+            const total = currentCards.length;
+            const masteredCount = masteredCards[currentTopic] ? masteredCards[currentTopic].length : 0;
+            flashcardStatsElement.textContent = `Topic: ${currentTopic} | Card ${currentIndex + 1} of ${total} | Mastered: ${masteredCount}/${total}`;
+            
+            const progressPercent = total > 0 ? (masteredCount / total) * 100 : 0;
+            masteredProgressBar.style.width = `${progressPercent}%`;
+            masteredProgressContainer.classList.remove('hidden');
+
+            if (masteredCount === total && total > 0) {
+                showMessage(`Congratulations! You've mastered all cards in ${currentTopic}!`, 5000);
+            }
+        }
+
+        // Flip the card
+        function flipCard() {
+            if (currentTopic && currentCards.length > 0) {
+                 flashcardElement.classList.toggle('is-flipped');
+            } else {
+                showMessage("Please select a topic first.");
+            }
+        }
+
+        // Go to next card
+        function nextCard() {
+            if (currentCards.length > 0) {
+                currentIndex = (currentIndex + 1) % currentCards.length;
+                displayCard();
+            }
+        }
+
+        // Go to previous card
+        function prevCard() {
+            if (currentCards.length > 0) {
+                currentIndex = (currentIndex - 1 + currentCards.length) % currentCards.length;
+                displayCard();
+            }
+        }
+
+        // Mark/unmark card as mastered
+        function toggleMastered() {
+            if (!currentTopic || !currentCards.length) return;
+
+            const cardIdentifier = currentCards[currentIndex].front; 
+
+            if (!masteredCards[currentTopic]) {
+                masteredCards[currentTopic] = [];
+            }
+
+            const masteredIndexInStorage = masteredCards[currentTopic].indexOf(cardIdentifier);
+
+            if (masteredIndexInStorage > -1) { 
+                masteredCards[currentTopic].splice(masteredIndexInStorage, 1);
+                showMessage("Card marked as 'Not Mastered'.");
+            } else { 
+                masteredCards[currentTopic].push(cardIdentifier);
+                showMessage("Card marked as 'Mastered'!");
+            }
+            updateMarkMasteredButton();
+            updateStats();
+            saveProgress();
+        }
+        
+        function updateMarkMasteredButton() {
+            if (!currentTopic || !currentCards.length) return;
+            const cardIdentifier = currentCards[currentIndex].front;
+            if (masteredCards[currentTopic] && masteredCards[currentTopic].includes(cardIdentifier)) {
+                markMasteredBtn.innerHTML = '<i class="fas fa-times-circle mr-2"></i>Unmark';
+                markMasteredBtn.classList.remove('btn-success');
+                markMasteredBtn.classList.add('btn-secondary');
+            } else {
+                markMasteredBtn.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Mastered';
+                markMasteredBtn.classList.remove('btn-secondary');
+                markMasteredBtn.classList.add('btn-success');
+            }
+        }
+
+        function shuffleCards() {
+            if (!currentTopic || !currentCards.length) {
+                showMessage("Please select a topic to shuffle cards.");
+                return;
+            }
+            // Fisher-Yates shuffle algorithm
+            for (let i = currentCards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [currentCards[i], currentCards[j]] = [currentCards[j], currentCards[i]];
+            }
+            currentIndex = 0; // Reset to the first card after shuffling
+            displayCard();
+            showMessage(`Cards in ${currentTopic} have been shuffled.`);
+        }
+
+        function resetTopicProgress() {
+            if (!currentTopic) {
+                showMessage("Please select a topic to reset progress.");
+                return;
+            }
+            // Added a confirm dialog for better UX
+            if (confirm(`Are you sure you want to reset progress for ${currentTopic}? All 'mastered' marks for this topic will be cleared.`)) {
+                if (masteredCards[currentTopic]) {
+                    masteredCards[currentTopic] = [];
+                }
+                updateMarkMasteredButton(); // Update button state
+                updateStats(); // Update stats display
+                saveProgress(); // Save the reset state
+                showMessage(`Progress for ${currentTopic} has been reset.`);
+            }
+        }
+
+        function saveProgress() {
+            localStorage.setItem('physicsFlashcardsProgress', JSON.stringify(masteredCards));
+            localStorage.setItem('physicsFlashcardsLastTopic', currentTopic || '');
+        }
+
+        function loadProgress() {
+            const savedProgress = localStorage.getItem('physicsFlashcardsProgress');
+            if (savedProgress) {
+                masteredCards = JSON.parse(savedProgress);
+            }
+            const lastTopic = localStorage.getItem('physicsFlashcardsLastTopic');
+            if (lastTopic && flashcardData.some(t => t.topic === lastTopic)) {
+                selectTopic(lastTopic);
+            } else {
+                displayCard(); // Display initial welcome message if no topic loaded
+            }
+        }
+
+        // --- Event Listeners ---
+        flashcardElement.addEventListener('click', flipCard);
+        prevCardBtn.addEventListener('click', prevCard);
+        nextCardBtn.addEventListener('click', nextCard);
+        markMasteredBtn.addEventListener('click', toggleMastered);
+        selectTopicBtn.addEventListener('click', () => {
+            topicModal.style.display = "flex";
+            updateTopicButtons(); 
+        });
+        closeModalBtn.addEventListener('click', () => topicModal.style.display = "none");
+        shuffleBtn.addEventListener('click', shuffleCards);
+        resetProgressBtn.addEventListener('click', resetTopicProgress);
+
+        window.addEventListener('click', (event) => {
+            if (event.target === topicModal) {
+                topicModal.style.display = "none";
+            }
+        });
+        
+        document.addEventListener('keydown', (event) => {
+            if (topicModal.style.display === "flex") return; 
+            if (event.key === 'ArrowLeft') {
+                prevCard();
+            } else if (event.key === 'ArrowRight') {
+                nextCard();
+            } else if (event.key === ' ') { 
+                event.preventDefault(); 
+                flipCard();
+            } else if (event.key.toLowerCase() === 'm') {
+                toggleMastered();
+            }
+        });
+
+        // --- Initialize App ---
+        init();
+
+    </script>
+</body>
+</html>
