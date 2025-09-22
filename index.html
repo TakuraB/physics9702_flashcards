@@ -23,6 +23,7 @@
     </script>
     <style>
         /* Custom font */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         body {
             font-family: 'Inter', sans-serif;
             overscroll-behavior: none; /* Prevents pull-to-refresh on mobile */
@@ -70,10 +71,10 @@
             font-weight: 600; /* Tailwind semibold */
             margin-bottom: 0.5rem; /* Tailwind mb-2 */
         }
-        .flashcard-content p, .flashcard-content ul {
-            font-size: 0.875rem; /* Tailwind text-sm */
-            line-height: 1.4; /* Increased line height for readability */
-            text-align: left; /* Align text to the left */
+        .flashcard-content p, .flashcard-content div {
+            font-size: 1rem; /* Tailwind text-base */
+            line-height: 1.5; /* Increased line height for readability */
+            text-align: center; /* Center align text */
             width: 100%; /* Ensure text takes full width */
         }
         .flashcard-content ul {
@@ -324,188 +325,164 @@
 
     <script>
         // --- Flashcard Data ---
-        // This data is based on the AS Level Physics syllabus (9702)
         const flashcardData = [
             {
                 topic: "1. Physical Quantities & Units",
                 cards: [
                     { front: "What does a physical quantity consist of?", back: "A numerical magnitude and a unit." },
-                    { front: "List the SI base quantities and their units.", back: "Mass (kg), Length (m), Time (s), Current (A), Temperature (K)." },
+                    { front: "What are the SI base quantities and their units?", back: "Mass (kg), Length (m), Time (s), Current (A), Temperature (K)." },
                     { front: "How are derived units expressed?", back: "As products or quotients of SI base units." },
-                    { front: "What is homogeneity of physical equations?", back: "Ensuring that the units on both sides of an equation are the same. SI base units are used to check this." },
-                    { front: "Give examples of SI prefixes.", back: "pico (p, $10^{-12}$), nano (n, $10^{-9}$), micro ($\\mu$, $10^{-6}$), milli (m, $10^{-3}$), kilo (k, $10^3$), mega (M, $10^6$), giga (G, $10^9$), tera (T, $10^{12}$)." },
-                    { front: "Differentiate systematic and random errors.", back: "Systematic errors: Consistent errors affecting accuracy (e.g., zero error). Random errors: Unpredictable fluctuations affecting precision." },
-                    { front: "Explain precision vs. accuracy.", back: "Precision: Closeness of repeated measurements to each other. Accuracy: Closeness of a measurement to the true value." },
-                    { front: "How is uncertainty in a derived quantity assessed?", back: "By simple addition of absolute uncertainties (for sum/difference) or percentage uncertainties (for product/quotient)." },
-                    { front: "Distinguish scalar and vector quantities.", back: "Scalar: Magnitude only (e.g., speed, mass, energy). Vector: Magnitude and direction (e.g., velocity, force, displacement)." },
+                    { front: "What is homogeneity of physical equations?", back: "An equation is homogeneous if the SI base units on both sides are the same." },
+                    { front: "List the main SI prefixes and their symbols.", back: `<style>.prefix-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }.prefix-table th, .prefix-table td { padding: 4px 8px; text-align: left; border-bottom: 1px solid #e5e7eb; }.prefix-table th { font-weight: 600; }</style><table class="prefix-table"><thead><tr><th>Prefix</th><th>Symbol</th><th>Multiplier</th></tr></thead><tbody><tr><td>tera</td><td>T</td><td>$10^{12}$</td></tr><tr><td>giga</td><td>G</td><td>$10^9$</td></tr><tr><td>mega</td><td>M</td><td>$10^6$</td></tr><tr><td>kilo</td><td>k</td><td>$10^3$</td></tr><tr><td>centi</td><td>c</td><td>$10^{-2}$</td></tr><tr><td>deci</td><td>d</td><td>$10^{-1}$</td></tr><tr><td>milli</td><td>m</td><td>$10^{-3}$</td></tr><tr><td>micro</td><td>&mu;</td><td>$10^{-6}$</td></tr><tr><td>nano</td><td>n</td><td>$10^{-9}$</td></tr><tr><td>pico</td><td>p</td><td>$10^{-12}$</td></tr></tbody></table>` },
+                    { front: "Differentiate between systematic and random errors.", back: "Systematic errors: Consistent errors affecting accuracy (e.g., zero error).<br>Random errors: Unpredictable fluctuations affecting precision." },
+                    { front: "Explain the distinction between precision and accuracy.", back: "Precision: Closeness of repeated measurements to each other (low spread).<br>Accuracy: Closeness of a measurement to the true value." },
+                    { front: "How is uncertainty in a derived quantity assessed?", back: "For sum/difference: add absolute uncertainties.<br>For product/quotient: add percentage uncertainties." },
+                    { front: "Distinguish between scalar and vector quantities.", back: "Scalar: Has magnitude only (e.g., speed, mass).<br>Vector: Has magnitude and direction (e.g., velocity, force)." },
                     { front: "How can a vector be represented?", back: "As two perpendicular components. Coplanar vectors can be added and subtracted." }
                 ]
             },
             {
                 topic: "2. Kinematics",
                 cards: [
-                    { front: "Define: Distance, Displacement, Speed, Velocity, Acceleration.", back: "Distance: Total path length. Displacement: Change in position in a specific direction. Speed: Rate of change of distance. Velocity: Rate of change of displacement. Acceleration: Rate of change of velocity." },
-                    { front: "How is displacement found from a velocity-time graph?", back: "Area under the velocity-time graph." },
-                    { front: "How is velocity found from a displacement-time graph?", back: "Gradient of the displacement-time graph." },
-                    { front: "How is acceleration found from a velocity-time graph?", back: "Gradient of the velocity-time graph." },
-                    { front: "Write one equation for uniformly accelerated motion.", back: "$v = u + at$ (where $v$=final velocity, $u$=initial velocity, $a$=acceleration, $t$=time)." },
-                    { front: "Write another equation for uniformly accelerated motion.", back: "$s = ut + \\frac{1}{2}at^2$ (where $s$=displacement)." },
-                    { front: "Write a third equation for uniformly accelerated motion.", back: "$v^2 = u^2 + 2as$." },
-                    { front: "Describe an experiment to determine 'g' (acceleration of free fall).", back: "Using a falling object (e.g., ball bearing released from an electromagnet) and measuring time taken to fall a known distance. Use $s = ut + \\frac{1}{2}at^2$ with $u=0$ and $a=g$." },
-                    { front: "Describe motion with uniform velocity in one direction and uniform acceleration in a perpendicular direction.", back: "This describes projectile motion (e.g., a ball thrown horizontally). The horizontal motion is constant velocity, and the vertical motion is constant acceleration due to gravity." }
+                    { front: "Define: Distance, Displacement, Speed, Velocity, Acceleration.", back: "Distance: Total path length.<br>Displacement: Change in position in a specific direction.<br>Speed: Rate of change of distance.<br>Velocity: Rate of change of displacement.<br>Acceleration: Rate of change of velocity." },
+                    { front: "How is displacement found from a velocity-time graph?", back: "By calculating the area under the graph." },
+                    { front: "How is velocity found from a displacement-time graph?", back: "By calculating the gradient of the graph." },
+                    { front: "How is acceleration found from a velocity-time graph?", back: "By calculating the gradient of the graph." },
+                    { front: "List the equations for uniformly accelerated motion in a straight line.", back: "$v = u + at$<br>$s = ut + \\frac{1}{2}at^2$<br>$v^2 = u^2 + 2as$" },
+                    { front: "Describe an experiment to determine 'g'.", back: "Measure the time 't' for an object to fall a known distance 's' from rest. Use $s = \\frac{1}{2}gt^2$ to calculate g." },
+                    { front: "Describe projectile motion.", back: "Motion with uniform velocity in one direction and uniform acceleration in a perpendicular direction (e.g. horizontal throw)." }
                 ]
             },
             {
                 topic: "3. Dynamics",
                 cards: [
-                    { front: "What is mass?", back: "The property of an object that resists change in motion. A measure of its inertia." },
-                    { front: "State Newton's Second Law (equation).", back: "$F = ma$. Resultant force is directly proportional to acceleration, and in the same direction." },
-                    { front: "Define linear momentum.", back: "Product of mass and velocity ($p = mv$). It is a vector quantity." },
-                    { front: "Define force in terms of momentum.", back: "Force is the rate of change of momentum ($F = \\Delta p / \\Delta t$)." },
+                    { front: "What is mass?", back: "The property of an object that resists a change in its motion (inertia)." },
+                    { front: "State Newton's Second Law in terms of acceleration.", back: "Resultant force is the product of mass and acceleration. Acceleration is in the same direction as the force.<br>$F=ma$" },
+                    { front: "Define linear momentum.", back: "The product of an object's mass and its velocity.<br>$p = mv$" },
+                    { front: "Define force in terms of momentum.", back: "Force is the rate of change of momentum.<br>$F = \\frac{\\Delta p}{\\Delta t}$" },
                     { front: "State Newton's First Law of Motion.", back: "An object stays at rest or in uniform motion in a straight line unless a resultant external force acts on it." },
-                    { front: "State Newton's Third Law of Motion.", back: "For every action, there is an equal and opposite reaction. (Forces occur in pairs, acting on different objects)." },
-                    { front: "Define weight.", back: "The effect of a gravitational field on a mass. Weight = mass $\\times$ acceleration of free fall ($W = mg$)." },
-                    { front: "Describe frictional forces and viscous/drag forces.", back: "Frictional forces oppose motion between surfaces in contact. Viscous/drag forces (like air resistance) oppose motion through a fluid and typically increase with speed." },
-                    { front: "What is terminal velocity?", back: "The constant velocity reached by an object falling through a fluid when the drag force equals the gravitational force (or driving force), resulting in zero net force and zero acceleration." },
-                    { front: "State the principle of conservation of momentum.", back: "In a closed system (no external forces), the total momentum remains constant before and after an interaction (e.g., collision)." },
-                    { front: "Differentiate elastic and inelastic collisions.", back: "Elastic: Total kinetic energy is conserved; relative speed of approach equals relative speed of separation. Inelastic: Kinetic energy is not conserved (some is transformed). Momentum is conserved in both." }
+                    { front: "State Newton's Third Law of Motion.", back: "If body A exerts a force on body B, then body B exerts an equal and opposite force on body A." },
+                    { front: "Define weight.", back: "The effect of a gravitational field on a mass. <br>$W=mg$" },
+                    { front: "Describe frictional and viscous/drag forces.", back: "Forces that oppose motion. Drag forces, like air resistance, typically increase with speed." },
+                    { front: "What is terminal velocity?", back: "The constant velocity reached when the resistive force on an object equals its driving force (e.g., weight), resulting in zero net force." },
+                    { front: "State the principle of conservation of momentum.", back: "In an isolated system, the total momentum remains constant." },
+                    { front: "Differentiate elastic and inelastic collisions.", back: "Elastic: Total kinetic energy is conserved.<br>Inelastic: Total kinetic energy is not conserved. <br>Momentum is conserved in both." }
                 ]
             },
             {
                 topic: "4. Forces, Density & Pressure",
                 cards: [
-                    { front: "What is the centre of gravity?", back: "The single point where the entire weight of an object may be considered to act." },
-                    { front: "Define and give the formula for the moment of a force.", back: "Moment = Force $\\times$ perpendicular distance from the pivot to the line of action of the force. ($M = Fd$)" },
-                    { front: "What is a couple?", back: "A pair of equal and opposite forces, not acting along the same line, that produces rotation only (no translational motion)." },
-                    { front: "Define and give the formula for the torque of a couple.", back: "Torque = one of the forces $\\times$ perpendicular distance between the forces. ($T = Fd$)" },
-                    { front: "State the principle of moments.", back: "For a system in rotational equilibrium, the sum of clockwise moments about any point equals the sum of anticlockwise moments about that same point." },
-                    { front: "What are the conditions for equilibrium?", back: "No resultant force and no resultant torque acting on the system." },
-                    { front: "How can coplanar forces in equilibrium be represented?", back: "By a closed vector triangle (or polygon)." },
-                    { front: "Define density and give its formula.", back: "Density ($\rho$) = Mass ($m$) / Volume ($V$). Unit: kg/m³." },
-                    { front: "Define pressure and give its formula.", back: "Pressure ($p$) = Force ($F$) / Area ($A$). Unit: Pascal (Pa) or N/m²." },
-                    { front: "State the equation for hydrostatic pressure.", back: "$\\Delta p = \\rho g \\Delta h$, where $\\rho$ is fluid density, $g$ is acceleration of free fall, $\\Delta h$ is change in depth." },
-                    { front: "What causes upthrust on an object in a fluid?", back: "The difference in hydrostatic pressure between the lower and upper surfaces of the object." },
-                    { front: "State Archimedes' principle (equation for upthrust).", back: "Upthrust $F = \\rho gV$, where $\\rho$ is fluid density, $g$ is acceleration of free fall, and $V$ is the volume of fluid displaced by the object." }
+                    { front: "What is the centre of gravity?", back: "The point where the entire weight of an object may be considered to act." },
+                    { front: "Define and give the formula for the moment of a force.", back: "The product of the force and the perpendicular distance from the pivot. <br>$Moment = Fd$" },
+                    { front: "What is a couple?", back: "A pair of equal and opposite forces that produces rotation only." },
+                    { front: "Define and give the formula for the torque of a couple.", back: "The product of one of the forces and the perpendicular distance between the forces. <br>$Torque = Fd$" },
+                    { front: "State the principle of moments.", back: "For equilibrium, the sum of clockwise moments about a point equals the sum of anticlockwise moments about that point." },
+                    { front: "What are the conditions for equilibrium?", back: "No resultant force and no resultant torque." },
+                    { front: "How can coplanar forces in equilibrium be represented?", back: "By a closed vector triangle." },
+                    { front: "Define density and give its formula.", back: "Mass per unit volume.<br>$\\rho = \\frac{m}{V}$" },
+                    { front: "Define pressure and give its formula.", back: "Force per unit area.<br>$p = \\frac{F}{A}$" },
+                    { front: "State the equation for hydrostatic pressure.", back: "$\\Delta p = \\rho g \\Delta h$" },
+                    { front: "What causes upthrust in a fluid?", back: "The difference in hydrostatic pressure between the lower and upper surfaces of an object." },
+                    { front: "State Archimedes' principle (equation for upthrust).", back: "Upthrust is equal to the weight of the fluid displaced.<br>$F = \\rho gV$" }
                 ]
             },
             {
                 topic: "5. Work, Energy & Power",
                 cards: [
-                    { front: "Define work done by a force.", back: "Work done = Force $\\times$ displacement in the direction of the force ($W = Fs \\cos\\theta$)." },
-                    { front: "State the principle of conservation of energy.", back: "Energy cannot be created or destroyed, only transferred from one form to another. The total energy in a closed system remains constant." },
-                    { front: "Define efficiency of a system.", back: "Efficiency = (Useful energy output / Total energy input) $\\times$ 100% OR (Useful power output / Total power input) $\\times$ 100%." },
-                    { front: "Define power.", back: "Power is the rate at which work is done or energy is transferred ($P = W/t$ or $P = E/t$)." },
-                    { front: "Give an alternative formula for power involving force and velocity.", back: "$P = Fv$ (Power = Force $\\times$ velocity in the direction of the force)." },
-                    { front: "Derive the formula for gravitational potential energy change ($\Delta E_p$) in a uniform field.", back: "Work done against gravity = Force $\\times$ height = $mg \\Delta h$. So, $\Delta E_p = mg\\Delta h$." },
-                    { front: "State the formula for kinetic energy ($E_k$).", back: "$E_k = \\frac{1}{2}mv^2$." },
-                    { front: "How can $E_k = \\frac{1}{2}mv^2$ be derived using equations of motion?", back: "Start with $W = Fs$. Substitute $F=ma$. Use $v^2 = u^2 + 2as$. If $u=0$, $s = v^2/(2a)$. So $W = ma(v^2/(2a)) = \\frac{1}{2}mv^2$. This work done is the kinetic energy." }
+                    { front: "Define work done by a force.", back: "Work done = Force × displacement in the direction of the force.<br>$W = Fs \\cos\\theta$" },
+                    { front: "State the principle of conservation of energy.", back: "Energy cannot be created or destroyed, only transferred from one form to another." },
+                    { front: "Define efficiency of a system.", back: "Efficiency = (Useful energy output / Total energy input) × 100%" },
+                    { front: "Define power.", back: "Power is the rate at which work is done or energy is transferred.<br>$P = W/t$" },
+                    { front: "Give an alternative formula for power involving force and velocity.", back: "$P = Fv$ (where v is velocity in the direction of the force)." },
+                    { front: "State the formula for gravitational potential energy change.", back: "$\\Delta E_p = mg\\Delta h$" },
+                    { front: "State the formula for kinetic energy.", back: "$E_k = \\frac{1}{2}mv^2$" }
                 ]
             },
-            // --- NEWLY ADDED TOPICS START HERE ---
             {
                 topic: "6. Deformation of Solids",
                 cards: [
-                    { front: "How is deformation caused in solids (one dimension)?", back: "By tensile (stretching) or compressive (squashing) forces." },
-                    { front: "Define: Load, Extension, Compression, Limit of Proportionality.", back: "Load: Applied force. Extension: Increase in length. Compression: Decrease in length. Limit of Proportionality: Point beyond which Hooke's Law is no longer obeyed (force is no longer directly proportional to extension)." },
-                    { front: "State Hooke's Law.", back: "Force is directly proportional to extension (or compression) up to the limit of proportionality ($F = kx$)." },
-                    { front: "Define and give the formula for the spring constant ($k$).", back: "Spring constant ($k$) is the force per unit extension. $k = F/x$. Unit: N/m." },
-                    { front: "Define: Stress, Strain, Young Modulus.", back: "Stress ($\\sigma$): Force per unit cross-sectional area ($\\sigma = F/A$). Strain ($\\epsilon$): Extension per unit original length ($\\epsilon = x/L_0$). Young Modulus ($E$): Ratio of stress to strain ($E = \\sigma/\\epsilon$), a measure of stiffness." },
-                    { front: "Outline an experiment to determine the Young modulus of a metal wire.", back: "Measure original length ($L_0$) and diameter (for area $A$). Apply known loads ($F$) and measure corresponding extensions ($x$). Plot $F$ vs $x$ (or stress vs strain). Gradient of linear region gives $k$ (or $E$). $E = (F/A) / (x/L_0)$." },
-                    { front: "Define: Elastic Deformation, Plastic Deformation, Elastic Limit.", back: "Elastic Deformation: Object returns to its original shape when the deforming force is removed. Plastic Deformation: Object is permanently deformed. Elastic Limit: Point beyond which plastic deformation occurs." },
-                    { front: "What does the area under a force-extension graph represent?", back: "The work done in deforming the material." },
-                    { front: "State the formula for elastic potential energy ($E_p$) stored in a material deformed within its limit of proportionality.", back: "$E_p = \\frac{1}{2}Fx = \\frac{1}{2}kx^2$." }
+                    { front: "Define: Load, Extension, Compression, Limit of Proportionality.", back: "Load: Applied force. <br>Extension: Increase in length.<br>Compression: Decrease in length.<br>Limit of Proportionality: Point beyond which Hooke's Law is no longer obeyed." },
+                    { front: "State Hooke's Law and its formula.", back: "Force is directly proportional to extension up to the limit of proportionality.<br>$F = kx$" },
+                    { front: "Define the spring constant (k).", back: "The force per unit extension.<br>$k = F/x$" },
+                    { front: "Define: Stress, Strain, Young Modulus.", back: "Stress($\\sigma$): Force per unit cross-sectional area ($F/A$).<br>Strain($\\epsilon$): Extension per unit original length ($x/L_0$).<br>Young Modulus($E$): Ratio of stress to strain ($E = \\sigma/\\epsilon$)." },
+                    { front: "Describe an experiment to determine the Young modulus of a wire.", back: "Measure original length and diameter. Apply known loads and measure corresponding extensions. Plot a graph of stress vs. strain. The gradient is the Young modulus." },
+                    { front: "Define: Elastic Deformation, Plastic Deformation, Elastic Limit.", back: "Elastic Deformation: Object returns to original shape when force is removed.<br>Plastic Deformation: Object is permanently deformed.<br>Elastic Limit: Point beyond which plastic deformation occurs." },
+                    { front: "What does the area under a force-extension graph represent?", back: "The work done in deforming the material (elastic potential energy stored)." },
+                    { front: "State the formula for elastic potential energy.", back: "$E_p = \\frac{1}{2}Fx = \\frac{1}{2}kx^2$" }
                 ]
             },
             {
                 topic: "7. Waves",
                 cards: [
-                    { front: "What is wave motion?", back: "Transfer of energy without net transfer of matter, illustrated by vibrations in ropes, springs, and ripple tanks." },
-                    { front: "Define: Displacement, Amplitude, Phase Difference, Period, Frequency, Wavelength, Speed of a wave.", back: "Displacement: Distance of a point from its equilibrium. Amplitude: Max displacement. Phase Difference: Fraction of a cycle one oscillation leads/lags another. Period (T): Time for one oscillation. Frequency (f): Oscillations per unit time ($f=1/T$). Wavelength ($\\lambda$): Distance between successive points in phase. Speed (v): Distance wave travels per unit time." },
-                    { front: "How can a Cathode-Ray Oscilloscope (CRO) determine frequency and amplitude?", back: "Time-base setting helps determine Period (T), then $f=1/T$. Y-gain (voltage sensitivity) setting helps determine amplitude from the vertical displacement on screen." },
-                    { front: "State the wave equation.", back: "$v = f\\lambda$ (speed = frequency $\\times$ wavelength)." },
-                    { front: "How is energy related to progressive waves?", back: "Energy is transferred by a progressive wave in the direction of wave propagation." },
-                    { front: "Define intensity of a wave and its relation to amplitude.", back: "Intensity = Power / Area ($I = P/A$). For a progressive wave, Intensity is proportional to (amplitude)$^2$ ($I \\propto A^2$)." },
-                    { front: "Compare transverse and longitudinal waves.", back: "Transverse: Oscillations are perpendicular to energy transfer direction (e.g., light, water surface waves). Longitudinal: Oscillations are parallel to energy transfer direction (e.g., sound)." },
-                    { front: "Explain the Doppler effect for sound waves (moving source, stationary observer).", back: "Observed frequency ($f_o$) is different from source frequency ($f_s$) when source moves relative to observer. $f_o = f_s \\frac{v}{(v \\pm v_s)}$ (+ if source moves away, - if source moves towards; $v$ is speed of sound, $v_s$ is speed of source)." },
-                    { front: "What are key properties of all electromagnetic (EM) waves?", back: "All are transverse waves, travel with speed $c$ (approx $3 \\times 10^8$ m/s) in free space." },
-                    { front: "List principal regions of the EM spectrum from longest to shortest wavelength.", back: "Radio waves, Microwaves, Infrared, Visible light, Ultraviolet, X-rays, Gamma rays." },
-                    { front: "What is the approximate wavelength range for visible light in free space?", back: "400 nm (violet) to 700 nm (red)." },
-                    { front: "What is polarisation?", back: "A phenomenon associated with transverse waves where oscillations are restricted to one plane (the plane of polarisation)." },
-                    { front: "State Malus's Law for polarised light passing through a polarising filter.", back: "$I = I_0 \\cos^2\\theta$, where $I_0$ is initial intensity of plane-polarised light, $I$ is transmitted intensity, $\\theta$ is angle between polarisation plane and filter's transmission axis." }
+                    { front: "Define: Displacement, Amplitude, Phase Difference, Period, Frequency, Wavelength, Speed.", back: "Displacement: Distance from equilibrium.<br>Amplitude: Max displacement.<br>Phase Difference: Fraction of a cycle one oscillation leads/lags another.<br>Period(T): Time for one oscillation.<br>Frequency(f): Oscillations per second ($1/T$).<br>Wavelength($\\lambda$): Distance between points in phase.<br>Speed(v): Distance wave travels per second." },
+                    { front: "State the wave equation.", back: "$v = f\\lambda$" },
+                    { front: "Define wave intensity and its relation to amplitude.", back: "Intensity = Power / Area. <br>Intensity is proportional to (amplitude)$^2$." },
+                    { front: "Compare transverse and longitudinal waves.", back: "Transverse: Oscillations are perpendicular to energy transfer.<br>Longitudinal: Oscillations are parallel to energy transfer." },
+                    { front: "Explain the Doppler effect for sound waves.", back: "The observed frequency is different from the source frequency when the source moves relative to a stationary observer.<br>$f_{o}=f_{s}v/(v\\pm v_{s})$" },
+                    { front: "What are the key properties of electromagnetic (EM) waves?", back: "All are transverse waves and travel at the speed of light 'c' in a vacuum." },
+                    { front: "What is the approximate wavelength range for visible light?", back: "400 nm (violet) to 700 nm (red) in a vacuum." },
+                    { front: "What is polarisation?", back: "A phenomenon of transverse waves where oscillations are restricted to one plane." },
+                    { front: "State Malus's Law for polarised light.", back: "$I = I_0 \\cos^2\\theta$, where $I_0$ is initial intensity and $\\theta$ is the angle between the polarisation plane and the filter's axis." }
                 ]
             },
             {
                 topic: "8. Superposition",
                 cards: [
-                    { front: "State the principle of superposition.", back: "When two or more waves meet at a point, the resultant displacement is the vector sum of the individual displacements of the waves." },
-                    { front: "How are stationary waves formed?", back: "By the superposition of two progressive waves of the same frequency, amplitude, and speed, travelling in opposite directions." },
-                    { front: "Describe experiments demonstrating stationary waves.", back: "Using microwaves (reflector and detector), stretched strings (vibrator and fixed end), air columns (tuning fork over a tube with water)." },
-                    { front: "Explain nodes and antinodes in a stationary wave.", back: "Nodes: Points of zero amplitude (destructive interference). Antinodes: Points of maximum amplitude (constructive interference)." },
-                    { front: "How can wavelength be determined from a stationary wave pattern?", back: "Distance between two adjacent nodes (or antinodes) is $\\lambda/2$. Distance between a node and adjacent antinode is $\\lambda/4$." },
+                    { front: "State the principle of superposition.", back: "When two or more waves meet, the resultant displacement is the vector sum of the individual displacements." },
+                    { front: "How are stationary waves formed?", back: "By the superposition of two progressive waves of the same frequency and amplitude, travelling in opposite directions." },
+                    { front: "Explain nodes and antinodes.", back: "Nodes: Points of zero amplitude.<br>Antinodes: Points of maximum amplitude." },
+                    { front: "How can wavelength be determined from a stationary wave?", back: "The distance between two adjacent nodes (or antinodes) is $\\lambda/2$." },
                     { front: "What is diffraction?", back: "The spreading of waves as they pass through an aperture or around an obstacle." },
-                    { front: "When is diffraction most significant?", back: "When the size of the gap or obstacle is comparable to the wavelength of the wave." },
-                    { front: "Define interference and coherence.", back: "Interference: Superposition of waves from coherent sources, resulting in a pattern of constructive and destructive interference. Coherence: Sources have a constant phase difference and the same frequency (and wavelength)." },
-                    { front: "What conditions are required for observable two-source interference fringes?", back: "Sources must be coherent. For light, sources must be monochromatic (single wavelength) and usually have similar amplitudes." },
-                    { front: "State the equation for double-slit interference using light.", back: "$\\lambda = \\frac{ax}{D}$, where $\\lambda$ is wavelength, $a$ is slit separation, $x$ is fringe separation (distance between centres of adjacent bright fringes), $D$ is distance from slits to screen." },
-                    { front: "State the diffraction grating equation.", back: "$d \\sin\\theta = n\\lambda$, where $d$ is the grating spacing (distance between adjacent slits), $\\theta$ is the angle of diffraction for the $n^{th}$ order maximum, $n$ is the order number (0, 1, 2,...), $\\lambda$ is the wavelength." },
-                    { front: "How is a diffraction grating used to determine the wavelength of light?", back: "Shine monochromatic light through the grating. Measure the angles ($\\theta$) for different orders ($n$) of maxima. Use $d \\sin\\theta = n\\lambda$ to calculate $\\lambda$. ($d = 1/\text{lines per unit length}$)." }
+                    { front: "Define interference and coherence.", back: "Interference: Superposition of waves from coherent sources.<br>Coherence: Sources have a constant phase difference and the same frequency." },
+                    { front: "What are the conditions for two-source interference fringes?", back: "Sources must be coherent and monochromatic (for light)." },
+                    { front: "State the equation for double-slit interference.", back: "$\\lambda = \\frac{ax}{D}$" },
+                    { front: "State the diffraction grating equation.", back: "$d \\sin\\theta = n\\lambda$" }
                 ]
             },
             {
                 topic: "9. Electricity",
                 cards: [
-                    { front: "What is an electric current?", back: "A flow of charge carriers (e.g., electrons in metals, ions in electrolytes). Charge on carriers is quantised (multiples of elementary charge $e$)." },
-                    { front: "State the equation relating charge, current, and time.", back: "$Q = It$ (Charge = Current $\\times$ Time)." },
-                    { front: "Give the expression for current in a conductor in terms of charge carriers.", back: "$I = Anvq$, where $A$ is cross-sectional area, $n$ is number density of charge carriers, $v$ is mean drift velocity, $q$ is charge on each carrier." },
-                    { front: "Define potential difference (p.d.) across a component.", back: "Energy transferred per unit charge passing through the component ($V = W/Q$ or $V = E/Q$)." },
-                    { front: "List three equations for electrical power.", back: "$P = VI$, $P = I^2R$, $P = V^2/R$." },
-                    { front: "Define resistance.", back: "Ratio of potential difference across a component to the current through it ($R = V/I$)." },
-                    { front: "Sketch I-V characteristic for: a) Metallic conductor (const. temp), b) Semiconductor diode, c) Filament lamp.", back: "a) Straight line through origin. b) Negligible current in reverse bias, current rises sharply in forward bias beyond threshold voltage. c) Curve starting from origin, gradient decreases as V (and I) increase (resistance increases)." },
-                    { front: "Why does the resistance of a filament lamp increase with current?", back: "As current increases, temperature of filament increases, causing increased lattice vibrations, which impede electron flow more, thus increasing resistance." },
-                    { front: "State Ohm's Law.", back: "Current through a conductor is directly proportional to the potential difference across it, provided physical conditions (like temperature) remain constant." },
-                    { front: "State the equation for resistivity.", back: "$R = \\frac{\\rho L}{A}$, where $\\rho$ is resistivity, $L$ is length, $A$ is cross-sectional area." },
-                    { front: "How does resistance of an LDR change with light intensity?", back: "Resistance of a Light-Dependent Resistor (LDR) decreases as light intensity increases." },
-                    { front: "How does resistance of a (NTC) thermistor change with temperature?", back: "Resistance of a Negative Temperature Coefficient (NTC) thermistor decreases as temperature increases." }
+                    { front: "What is an electric current?", back: "A flow of charge carriers, where the charge is quantised." },
+                    { front: "State the equation relating charge, current, and time.", back: "$Q = It$" },
+                    { front: "Give the expression for current in a conductor.", back: "$I = Anvq$" },
+                    { front: "Define potential difference (p.d.) across a component.", back: "Energy transferred per unit charge passing through it.<br>$V = W/Q$" },
+                    { front: "List three equations for electrical power.", back: "$P = VI$<br>$P = I^2R$<br>$P = V^2/R$" },
+                    { front: "Define resistance and state its formula.", back: "The ratio of potential difference to current.<br>$R = V/I$" },
+                    { front: "Sketch the I-V characteristic for: a) Metallic conductor, b) Diode, c) Filament lamp.", back: "a) Straight line through origin.<br>b) Zero current in reverse, sharp rise in forward.<br>c) Curve with decreasing gradient." },
+                    { front: "State Ohm's Law.", back: "Current is proportional to p.d. if physical conditions (e.g., temperature) are constant." },
+                    { front: "State the equation for resistivity.", back: "$R = \\frac{\\rho L}{A}$" },
+                    { front: "Describe the resistance change of an LDR and a thermistor.", back: "LDR: Resistance decreases as light intensity increases.<br>Thermistor (NTC): Resistance decreases as temperature increases." }
                 ]
             },
             {
                 topic: "10. D.C. Circuits",
                 cards: [
-                    { front: "Define electromotive force (e.m.f.) of a source.", back: "Energy transferred per unit charge in driving charge around a complete circuit by the source. (Work done by source per unit charge)." },
-                    { front: "Distinguish between e.m.f. and p.d. in terms of energy.", back: "e.m.f. is energy supplied to charges by a source (energy gained per unit charge). p.d. is energy transferred by charges as they pass through a component (energy lost per unit charge)." },
-                    { front: "What is internal resistance of a source?", back: "The resistance within the source of e.m.f. itself, which causes energy dissipation within the source when current flows." },
-                    { front: "How does internal resistance affect terminal potential difference?", back: "Terminal p.d. ($V$) across the source is $V = E - Ir$, where $E$ is e.m.f., $I$ is current, and $r$ is internal resistance. $V < E$ when current flows." },
-                    { front: "State Kirchhoff's first law and its basis.", back: "The sum of currents entering a junction equals the sum of currents leaving it. Based on conservation of charge." },
-                    { front: "State Kirchhoff's second law and its basis.", back: "In any closed loop in a circuit, the algebraic sum of e.m.f.s equals the algebraic sum of potential differences. Based on conservation of energy." },
-                    { front: "Formula for combined resistance of resistors in series?", back: "$R_T = R_1 + R_2 + R_3 + ...$" },
-                    { front: "Formula for combined resistance of resistors in parallel?", back: "$\\frac{1}{R_T} = \\frac{1}{R_1} + \\frac{1}{R_2} + \\frac{1}{R_3} + ...$" },
-                    { front: "What is the principle of a potential divider circuit?", back: "To provide a fraction of a source voltage as an output. The voltage is divided across series resistors in proportion to their resistances ($V_{out} = V_{in} \\times \\frac{R_2}{R_1+R_2}$ for output across $R_2$)." },
-                    { front: "What is a potentiometer used for?", back: "Comparing potential differences accurately, often using a null method (where a galvanometer reads zero current)." },
-                    { front: "How are thermistors/LDRs used in potential dividers?", back: "To create a potential difference that varies with temperature (thermistor) or light intensity (LDR), often used in sensor circuits." }
+                    { front: "Define electromotive force (e.m.f.) of a source.", back: "Energy transferred per unit charge in driving charge around a complete circuit." },
+                    { front: "Distinguish between e.m.f. and p.d.", back: "e.m.f. is energy supplied per unit charge by the source.<br>p.d. is energy transferred per unit charge by a component." },
+                    { front: "What is internal resistance?", back: "The resistance within a source of e.m.f., causing the terminal p.d. to be less than the e.m.f. when current flows." },
+                    { front: "State Kirchhoff's first law.", back: "The sum of currents entering a junction equals the sum of currents leaving it (conservation of charge)." },
+                    { front: "State Kirchhoff's second law.", back: "In any closed loop, the sum of e.m.f.s equals the sum of potential differences (conservation of energy)." },
+                    { front: "Formula for resistors in series?", back: "$R_T = R_1 + R_2 + ...$" },
+                    { front: "Formula for resistors in parallel?", back: "$\\frac{1}{R_T} = \\frac{1}{R_1} + \\frac{1}{R_2} + ...$" },
+                    { front: "What is the principle of a potential divider circuit?", back: "To provide a variable p.d. or a p.d. that is a fraction of the source voltage." }
                 ]
             },
-            // --- END OF NEWLY ADDED TOPICS ---
             {
                 topic: "11. Particle Physics",
                 cards: [
-                    { front: "What did the $\\alpha$-particle scattering experiment infer?", back: "The existence of a small, dense, positively charged nucleus within the atom." },
-                    { front: "Describe the simple model for the nuclear atom.", back: "Protons and neutrons in a central nucleus, with orbital electrons." },
-                    { front: "Distinguish between nucleon number and proton number.", back: "Nucleon number (A): Total protons + neutrons. Proton number (Z): Number of protons (defines element)." },
-                    { front: "What are isotopes?", back: "Forms of the same element with different numbers of neutrons (same Z, different A)." },
-                    { front: "Write the nuclide notation.", back: "$^A_Z X$, e.g., $^{238}_{92}U$." },
-                    { front: "What is conserved in nuclear processes?", back: "Nucleon number and charge." },
-                    { front: "Describe $\\alpha$, $\\beta^-$, $\\beta^+$, and $\\gamma$ radiations.", back: "$\\alpha$: $^4_2He$ nucleus (+2e). $\\beta^-$: electron ($-e$). $\\beta^+$: positron ($+e$). $\\gamma$: high-energy photon (0 charge)." },
-                    { front: "What is an antiparticle?", back: "Same mass, opposite charge to its particle. E.g., positron is antiparticle of electron." },
-                    { front: "What is produced during $\\beta^-$ and $\\beta^+$ decay besides the beta particle?", back: "$\\beta^-$ decay: (electron) antineutrino ($\bar{\\nu}_e$). $\\beta^+$ decay: (electron) neutrino ($\nu_e$)." },
-                    { front: "Why do $\\alpha$-particles have discrete energies but $\\beta$-particles have a continuous range?", back: "$\\beta$-decay involves emission of an (anti)neutrino which shares energy with the $\\beta$-particle, leading to a continuous energy spectrum for $\\beta$-particles." },
-                    { front: "Represent $\\alpha$-decay of $^{238}_{92}U$.", back: "$^{238}_{92}U \\rightarrow ^{234}_{90}Th + ^4_2\\alpha$." },
-                    { front: "What is the unified atomic mass unit (u)?", back: "Unit of mass, approx $1.661 \\times 10^{-27}$ kg. $1u$ is 1/12th the mass of a carbon-12 atom." },
-                    { front: "What is a quark? Name the six flavours.", back: "A fundamental particle. Flavours: up (u), down (d), strange (s), charm (c), top (t), bottom (b)." },
-                    { front: "What are the charges of up and down quarks?", back: "Up (u): $+2/3 e$. Down (d): $-1/3 e$. Antiquarks have opposite charges." },
-                    { front: "What is the quark composition of a proton and a neutron?", back: "Proton (p): uud. Neutron (n): udd." },
-                    { front: "What is a hadron? Name the two types.", back: "Particle made of quarks. Baryon (3 quarks, e.g., p, n) or Meson (1 quark, 1 antiquark)." },
-                    { front: "Describe quark changes during $\\beta^-$ and $\\beta^+$ decay.", back: "$\\beta^-$: $d \\rightarrow u + e^- + \bar{\\nu}_e$. $\\beta^+$: $u \\rightarrow d + e^+ + \nu_e$." },
-                    { front: "What are leptons?", back: "Fundamental particles not experiencing strong nuclear force (e.g., electrons, neutrinos)." }
+                    { front: "What did the $\\alpha$-particle scattering experiment infer?", back: "The existence of a small, dense, positively charged nucleus." },
+                    { front: "Distinguish between nucleon number (A) and proton number (Z).", back: "Nucleon number (A): Total protons + neutrons.<br>Proton number (Z): Number of protons." },
+                    { front: "What are isotopes?", back: "Nuclei of the same element with different numbers of neutrons." },
+                    { front: "Describe $\\alpha$, $\\beta^-$, $\\beta^+$, and $\\gamma$ radiations.", back: "$\\alpha$: Helium nucleus ($^4_2He$).<br>$\\beta^-$: electron.<br>$\\beta^+$: positron.<br>$\\gamma$: high-energy photon." },
+                    { front: "What is an antiparticle?", back: "A particle with the same mass but opposite charge as its corresponding particle." },
+                    { front: "What is emitted during $\\beta^-$ and $\\beta^+$ decay?", back: "$\\beta^-$ decay: an (electron) antineutrino.<br>$\\beta^+$ decay: an (electron) neutrino." },
+                    { front: "Why do $\\beta$-particles have a continuous range of energies?", back: "Because the energy is shared with the (anti)neutrino emitted during decay." },
+                    { front: "What is a quark? Name the two relevant for AS Level.", back: "A fundamental particle. The two main types are up (u) and down (d)." },
+                    { front: "What are the charges of up and down quarks?", back: "Up (u): $+2/3 e$. <br>Down (d): $-1/3 e$." },
+                    { front: "What is the quark composition of a proton and a neutron?", back: "Proton: uud.<br>Neutron: udd." },
+                    { front: "What is a hadron? Name the two types.", back: "A particle made of quarks. Either a baryon (3 quarks) or a meson (quark-antiquark pair)." },
+                    { front: "Describe the quark changes during $\\beta^-$ and $\\beta^+$ decay.", back: "$\\beta^-$: $d \\rightarrow u + e^- + \\bar{\\nu}_e$<br>$\\beta^+$: $u \\rightarrow d + e^+ + \\nu_e$" },
+                    { front: "What are leptons?", back: "Fundamental particles that do not experience the strong nuclear force (e.g., electrons, neutrinos)." }
                 ]
             }
         ];
@@ -602,7 +579,7 @@
                 flashcardStatsElement.textContent = "Select a topic to begin.";
                 navigationButtons.classList.add('hidden');
                 masteredProgressContainer.classList.add('hidden');
-                 if (window.MathJax) { // Typeset the welcome message if needed
+                 if (window.MathJax && typeof MathJax.typesetPromise === 'function') { // Typeset the welcome message if needed
                     MathJax.typesetPromise([cardFrontContentElement]).catch(function (err) {
                         console.error('MathJax typesetting error: ' + err.message);
                     });
@@ -616,7 +593,7 @@
             cardBackTitleElement.textContent = "Answer:";
             cardBackContentElement.innerHTML = card.back;
 
-            if (window.MathJax) {
+            if (window.MathJax && typeof MathJax.typesetPromise === 'function') {
                 MathJax.typesetPromise([cardFrontContentElement, cardBackContentElement]).catch(function (err) {
                     console.error('MathJax typesetting error: ' + err.message);
                 });
@@ -800,3 +777,4 @@
     </script>
 </body>
 </html>
+
