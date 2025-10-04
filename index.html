@@ -326,165 +326,739 @@
     <script>
         // --- Flashcard Data ---
         const flashcardData = [
-            {
-                topic: "1. Physical Quantities & Units",
-                cards: [
-                    { front: "What does a physical quantity consist of?", back: "A numerical magnitude and a unit." },
-                    { front: "What are the SI base quantities and their units?", back: "Mass (kg), Length (m), Time (s), Current (A), Temperature (K)." },
-                    { front: "How are derived units expressed?", back: "As products or quotients of SI base units." },
-                    { front: "What is homogeneity of physical equations?", back: "An equation is homogeneous if the SI base units on both sides are the same." },
-                    { front: "List the main SI prefixes and their symbols.", back: `<style>.prefix-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }.prefix-table th, .prefix-table td { padding: 4px 8px; text-align: left; border-bottom: 1px solid #e5e7eb; }.prefix-table th { font-weight: 600; }</style><table class="prefix-table"><thead><tr><th>Prefix</th><th>Symbol</th><th>Multiplier</th></tr></thead><tbody><tr><td>tera</td><td>T</td><td>$10^{12}$</td></tr><tr><td>giga</td><td>G</td><td>$10^9$</td></tr><tr><td>mega</td><td>M</td><td>$10^6$</td></tr><tr><td>kilo</td><td>k</td><td>$10^3$</td></tr><tr><td>centi</td><td>c</td><td>$10^{-2}$</td></tr><tr><td>deci</td><td>d</td><td>$10^{-1}$</td></tr><tr><td>milli</td><td>m</td><td>$10^{-3}$</td></tr><tr><td>micro</td><td>&mu;</td><td>$10^{-6}$</td></tr><tr><td>nano</td><td>n</td><td>$10^{-9}$</td></tr><tr><td>pico</td><td>p</td><td>$10^{-12}$</td></tr></tbody></table>` },
-                    { front: "Differentiate between systematic and random errors.", back: "Systematic errors: Consistent errors affecting accuracy (e.g., zero error).<br>Random errors: Unpredictable fluctuations affecting precision." },
-                    { front: "Explain the distinction between precision and accuracy.", back: "Precision: Closeness of repeated measurements to each other (low spread).<br>Accuracy: Closeness of a measurement to the true value." },
-                    { front: "How is uncertainty in a derived quantity assessed?", back: "For sum/difference: add absolute uncertainties.<br>For product/quotient: add percentage uncertainties." },
-                    { front: "Distinguish between scalar and vector quantities.", back: "Scalar: Has magnitude only (e.g., speed, mass).<br>Vector: Has magnitude and direction (e.g., velocity, force)." },
-                    { front: "How can a vector be represented?", back: "As two perpendicular components. Coplanar vectors can be added and subtracted." }
-                ]
-            },
-            {
-                topic: "2. Kinematics",
-                cards: [
-                    { front: "Define: Distance, Displacement, Speed, Velocity, Acceleration.", back: "Distance: Total path length.<br>Displacement: Change in position in a specific direction.<br>Speed: Rate of change of distance.<br>Velocity: Rate of change of displacement.<br>Acceleration: Rate of change of velocity." },
-                    { front: "How is displacement found from a velocity-time graph?", back: "By calculating the area under the graph." },
-                    { front: "How is velocity found from a displacement-time graph?", back: "By calculating the gradient of the graph." },
-                    { front: "How is acceleration found from a velocity-time graph?", back: "By calculating the gradient of the graph." },
-                    { front: "List the equations for uniformly accelerated motion in a straight line.", back: "$v = u + at$<br>$s = ut + \\frac{1}{2}at^2$<br>$v^2 = u^2 + 2as$" },
-                    { front: "Describe an experiment to determine 'g'.", back: "Measure the time 't' for an object to fall a known distance 's' from rest. Use $s = \\frac{1}{2}gt^2$ to calculate g." },
-                    { front: "Describe projectile motion.", back: "Motion with uniform velocity in one direction and uniform acceleration in a perpendicular direction (e.g. horizontal throw)." }
-                ]
-            },
-            {
-                topic: "3. Dynamics",
-                cards: [
-                    { front: "What is mass?", back: "The property of an object that resists a change in its motion (inertia)." },
-                    { front: "State Newton's Second Law in terms of acceleration.", back: "Resultant force is the product of mass and acceleration. Acceleration is in the same direction as the force.<br>$F=ma$" },
-                    { front: "Define linear momentum.", back: "The product of an object's mass and its velocity.<br>$p = mv$" },
-                    { front: "Define force in terms of momentum.", back: "Force is the rate of change of momentum.<br>$F = \\frac{\\Delta p}{\\Delta t}$" },
-                    { front: "State Newton's First Law of Motion.", back: "An object stays at rest or in uniform motion in a straight line unless a resultant external force acts on it." },
-                    { front: "State Newton's Third Law of Motion.", back: "If body A exerts a force on body B, then body B exerts an equal and opposite force on body A." },
-                    { front: "Define weight.", back: "The effect of a gravitational field on a mass. <br>$W=mg$" },
-                    { front: "Describe frictional and viscous/drag forces.", back: "Forces that oppose motion. Drag forces, like air resistance, typically increase with speed." },
-                    { front: "What is terminal velocity?", back: "The constant velocity reached when the resistive force on an object equals its driving force (e.g., weight), resulting in zero net force." },
-                    { front: "State the principle of conservation of momentum.", back: "In an isolated system, the total momentum remains constant." },
-                    { front: "Differentiate elastic and inelastic collisions.", back: "Elastic: Total kinetic energy is conserved.<br>Inelastic: Total kinetic energy is not conserved. <br>Momentum is conserved in both." }
-                ]
-            },
-            {
-                topic: "4. Forces, Density & Pressure",
-                cards: [
-                    { front: "What is the centre of gravity?", back: "The point where the entire weight of an object may be considered to act." },
-                    { front: "Define and give the formula for the moment of a force.", back: "The product of the force and the perpendicular distance from the pivot. <br>$Moment = Fd$" },
-                    { front: "What is a couple?", back: "A pair of equal and opposite forces that produces rotation only." },
-                    { front: "Define and give the formula for the torque of a couple.", back: "The product of one of the forces and the perpendicular distance between the forces. <br>$Torque = Fd$" },
-                    { front: "State the principle of moments.", back: "For equilibrium, the sum of clockwise moments about a point equals the sum of anticlockwise moments about that point." },
-                    { front: "What are the conditions for equilibrium?", back: "No resultant force and no resultant torque." },
-                    { front: "How can coplanar forces in equilibrium be represented?", back: "By a closed vector triangle." },
-                    { front: "Define density and give its formula.", back: "Mass per unit volume.<br>$\\rho = \\frac{m}{V}$" },
-                    { front: "Define pressure and give its formula.", back: "Force per unit area.<br>$p = \\frac{F}{A}$" },
-                    { front: "State the equation for hydrostatic pressure.", back: "$\\Delta p = \\rho g \\Delta h$" },
-                    { front: "What causes upthrust in a fluid?", back: "The difference in hydrostatic pressure between the lower and upper surfaces of an object." },
-                    { front: "State Archimedes' principle (equation for upthrust).", back: "Upthrust is equal to the weight of the fluid displaced.<br>$F = \\rho gV$" }
-                ]
-            },
-            {
-                topic: "5. Work, Energy & Power",
-                cards: [
-                    { front: "Define work done by a force.", back: "Work done = Force × displacement in the direction of the force.<br>$W = Fs \\cos\\theta$" },
-                    { front: "State the principle of conservation of energy.", back: "Energy cannot be created or destroyed, only transferred from one form to another." },
-                    { front: "Define efficiency of a system.", back: "Efficiency = (Useful energy output / Total energy input) × 100%" },
-                    { front: "Define power.", back: "Power is the rate at which work is done or energy is transferred.<br>$P = W/t$" },
-                    { front: "Give an alternative formula for power involving force and velocity.", back: "$P = Fv$ (where v is velocity in the direction of the force)." },
-                    { front: "State the formula for gravitational potential energy change.", back: "$\\Delta E_p = mg\\Delta h$" },
-                    { front: "State the formula for kinetic energy.", back: "$E_k = \\frac{1}{2}mv^2$" }
-                ]
-            },
-            {
-                topic: "6. Deformation of Solids",
-                cards: [
-                    { front: "Define: Load, Extension, Compression, Limit of Proportionality.", back: "Load: Applied force. <br>Extension: Increase in length.<br>Compression: Decrease in length.<br>Limit of Proportionality: Point beyond which Hooke's Law is no longer obeyed." },
-                    { front: "State Hooke's Law and its formula.", back: "Force is directly proportional to extension up to the limit of proportionality.<br>$F = kx$" },
-                    { front: "Define the spring constant (k).", back: "The force per unit extension.<br>$k = F/x$" },
-                    { front: "Define: Stress, Strain, Young Modulus.", back: "Stress($\\sigma$): Force per unit cross-sectional area ($F/A$).<br>Strain($\\epsilon$): Extension per unit original length ($x/L_0$).<br>Young Modulus($E$): Ratio of stress to strain ($E = \\sigma/\\epsilon$)." },
-                    { front: "Describe an experiment to determine the Young modulus of a wire.", back: "Measure original length and diameter. Apply known loads and measure corresponding extensions. Plot a graph of stress vs. strain. The gradient is the Young modulus." },
-                    { front: "Define: Elastic Deformation, Plastic Deformation, Elastic Limit.", back: "Elastic Deformation: Object returns to original shape when force is removed.<br>Plastic Deformation: Object is permanently deformed.<br>Elastic Limit: Point beyond which plastic deformation occurs." },
-                    { front: "What does the area under a force-extension graph represent?", back: "The work done in deforming the material (elastic potential energy stored)." },
-                    { front: "State the formula for elastic potential energy.", back: "$E_p = \\frac{1}{2}Fx = \\frac{1}{2}kx^2$" }
-                ]
-            },
-            {
-                topic: "7. Waves",
-                cards: [
-                    { front: "Define: Displacement, Amplitude, Phase Difference, Period, Frequency, Wavelength, Speed.", back: "Displacement: Distance from equilibrium.<br>Amplitude: Max displacement.<br>Phase Difference: Fraction of a cycle one oscillation leads/lags another.<br>Period(T): Time for one oscillation.<br>Frequency(f): Oscillations per second ($1/T$).<br>Wavelength($\\lambda$): Distance between points in phase.<br>Speed(v): Distance wave travels per second." },
-                    { front: "State the wave equation.", back: "$v = f\\lambda$" },
-                    { front: "Define wave intensity and its relation to amplitude.", back: "Intensity = Power / Area. <br>Intensity is proportional to (amplitude)$^2$." },
-                    { front: "Compare transverse and longitudinal waves.", back: "Transverse: Oscillations are perpendicular to energy transfer.<br>Longitudinal: Oscillations are parallel to energy transfer." },
-                    { front: "Explain the Doppler effect for sound waves.", back: "The observed frequency is different from the source frequency when the source moves relative to a stationary observer.<br>$f_{o}=f_{s}v/(v\\pm v_{s})$" },
-                    { front: "What are the key properties of electromagnetic (EM) waves?", back: "All are transverse waves and travel at the speed of light 'c' in a vacuum." },
-                    { front: "What is the approximate wavelength range for visible light?", back: "400 nm (violet) to 700 nm (red) in a vacuum." },
-                    { front: "What is polarisation?", back: "A phenomenon of transverse waves where oscillations are restricted to one plane." },
-                    { front: "State Malus's Law for polarised light.", back: "$I = I_0 \\cos^2\\theta$, where $I_0$ is initial intensity and $\\theta$ is the angle between the polarisation plane and the filter's axis." }
-                ]
-            },
-            {
-                topic: "8. Superposition",
-                cards: [
-                    { front: "State the principle of superposition.", back: "When two or more waves meet, the resultant displacement is the vector sum of the individual displacements." },
-                    { front: "How are stationary waves formed?", back: "By the superposition of two progressive waves of the same frequency and amplitude, travelling in opposite directions." },
-                    { front: "Explain nodes and antinodes.", back: "Nodes: Points of zero amplitude.<br>Antinodes: Points of maximum amplitude." },
-                    { front: "How can wavelength be determined from a stationary wave?", back: "The distance between two adjacent nodes (or antinodes) is $\\lambda/2$." },
-                    { front: "What is diffraction?", back: "The spreading of waves as they pass through an aperture or around an obstacle." },
-                    { front: "Define interference and coherence.", back: "Interference: Superposition of waves from coherent sources.<br>Coherence: Sources have a constant phase difference and the same frequency." },
-                    { front: "What are the conditions for two-source interference fringes?", back: "Sources must be coherent and monochromatic (for light)." },
-                    { front: "State the equation for double-slit interference.", back: "$\\lambda = \\frac{ax}{D}$" },
-                    { front: "State the diffraction grating equation.", back: "$d \\sin\\theta = n\\lambda$" }
-                ]
-            },
-            {
-                topic: "9. Electricity",
-                cards: [
-                    { front: "What is an electric current?", back: "A flow of charge carriers, where the charge is quantised." },
-                    { front: "State the equation relating charge, current, and time.", back: "$Q = It$" },
-                    { front: "Give the expression for current in a conductor.", back: "$I = Anvq$" },
-                    { front: "Define potential difference (p.d.) across a component.", back: "Energy transferred per unit charge passing through it.<br>$V = W/Q$" },
-                    { front: "List three equations for electrical power.", back: "$P = VI$<br>$P = I^2R$<br>$P = V^2/R$" },
-                    { front: "Define resistance and state its formula.", back: "The ratio of potential difference to current.<br>$R = V/I$" },
-                    { front: "Sketch the I-V characteristic for: a) Metallic conductor, b) Diode, c) Filament lamp.", back: "a) Straight line through origin.<br>b) Zero current in reverse, sharp rise in forward.<br>c) Curve with decreasing gradient." },
-                    { front: "State Ohm's Law.", back: "Current is proportional to p.d. if physical conditions (e.g., temperature) are constant." },
-                    { front: "State the equation for resistivity.", back: "$R = \\frac{\\rho L}{A}$" },
-                    { front: "Describe the resistance change of an LDR and a thermistor.", back: "LDR: Resistance decreases as light intensity increases.<br>Thermistor (NTC): Resistance decreases as temperature increases." }
-                ]
-            },
-            {
-                topic: "10. D.C. Circuits",
-                cards: [
-                    { front: "Define electromotive force (e.m.f.) of a source.", back: "Energy transferred per unit charge in driving charge around a complete circuit." },
-                    { front: "Distinguish between e.m.f. and p.d.", back: "e.m.f. is energy supplied per unit charge by the source.<br>p.d. is energy transferred per unit charge by a component." },
-                    { front: "What is internal resistance?", back: "The resistance within a source of e.m.f., causing the terminal p.d. to be less than the e.m.f. when current flows." },
-                    { front: "State Kirchhoff's first law.", back: "The sum of currents entering a junction equals the sum of currents leaving it (conservation of charge)." },
-                    { front: "State Kirchhoff's second law.", back: "In any closed loop, the sum of e.m.f.s equals the sum of potential differences (conservation of energy)." },
-                    { front: "Formula for resistors in series?", back: "$R_T = R_1 + R_2 + ...$" },
-                    { front: "Formula for resistors in parallel?", back: "$\\frac{1}{R_T} = \\frac{1}{R_1} + \\frac{1}{R_2} + ...$" },
-                    { front: "What is the principle of a potential divider circuit?", back: "To provide a variable p.d. or a p.d. that is a fraction of the source voltage." }
-                ]
-            },
-            {
-                topic: "11. Particle Physics",
-                cards: [
-                    { front: "What did the $\\alpha$-particle scattering experiment infer?", back: "The existence of a small, dense, positively charged nucleus." },
-                    { front: "Distinguish between nucleon number (A) and proton number (Z).", back: "Nucleon number (A): Total protons + neutrons.<br>Proton number (Z): Number of protons." },
-                    { front: "What are isotopes?", back: "Nuclei of the same element with different numbers of neutrons." },
-                    { front: "Describe $\\alpha$, $\\beta^-$, $\\beta^+$, and $\\gamma$ radiations.", back: "$\\alpha$: Helium nucleus ($^4_2He$).<br>$\\beta^-$: electron.<br>$\\beta^+$: positron.<br>$\\gamma$: high-energy photon." },
-                    { front: "What is an antiparticle?", back: "A particle with the same mass but opposite charge as its corresponding particle." },
-                    { front: "What is emitted during $\\beta^-$ and $\\beta^+$ decay?", back: "$\\beta^-$ decay: an (electron) antineutrino.<br>$\\beta^+$ decay: an (electron) neutrino." },
-                    { front: "Why do $\\beta$-particles have a continuous range of energies?", back: "Because the energy is shared with the (anti)neutrino emitted during decay." },
-                    { front: "What is a quark? Name the two relevant for AS Level.", back: "A fundamental particle. The two main types are up (u) and down (d)." },
-                    { front: "What are the charges of up and down quarks?", back: "Up (u): $+2/3 e$. <br>Down (d): $-1/3 e$." },
-                    { front: "What is the quark composition of a proton and a neutron?", back: "Proton: uud.<br>Neutron: udd." },
-                    { front: "What is a hadron? Name the two types.", back: "A particle made of quarks. Either a baryon (3 quarks) or a meson (quark-antiquark pair)." },
-                    { front: "Describe the quark changes during $\\beta^-$ and $\\beta^+$ decay.", back: "$\\beta^-$: $d \\rightarrow u + e^- + \\bar{\\nu}_e$<br>$\\beta^+$: $u \\rightarrow d + e^+ + \\nu_e$" },
-                    { front: "What are leptons?", back: "Fundamental particles that do not experience the strong nuclear force (e.g., electrons, neutrinos)." }
-                ]
-            }
+            
+{
+  "topic": "1. Physical Quantities & Units",
+
+  "cards": [
+    {
+      "front": "What does a physical quantity consist of?",
+      "back": "A numerical magnitude and a unit. Example: 5.2 m/s (magnitude 5.2, unit m/s)."
+    },
+    {
+      "front": "What are the 5 essential SI base quantities and units for AS Physics?",
+      "back": "<table class='prefix-table'><thead><tr><th>Quantity</th><th>Unit</th><th>Symbol</th></tr></thead><tbody><tr><td>Mass</td><td>kilogram</td><td>kg</td></tr><tr><td>Length</td><td>meter</td><td>m</td></tr><tr><td>Time</td><td>second</td><td>s</td></tr><tr><td>Electric Current</td><td>ampere</td><td>A</td></tr><tr><td>Temperature</td><td>kelvin</td><td>K</td></tr></tbody></table>"
+    },
+    {
+      "front": "How are derived units expressed in terms of base units? Give examples.",
+      "back": "As combinations of SI base units from defining equations:<br><b>Force (N):</b> F=ma → $kg \\cdot m \\cdot s^{-2}$<br><b>Pressure (Pa):</b> P=F/A → $kg \\cdot m^{-1} \\cdot s^{-2}$<br><b>Energy (J):</b> E=½mv² → $kg \\cdot m^2 \\cdot s^{-2}$"
+    },
+    {
+      "front": "What is homogeneity of physical equations?",
+      "back": "An equation is homogeneous if the SI base units are identical on both sides. Used to verify equation validity."
+    },
+    {
+      "front": "List the essential SI prefixes and their multipliers.",
+      "back": "<table class='prefix-table'><thead><tr><th>Prefix</th><th>Symbol</th><th>Multiplier</th></tr></thead><tbody><tr><td>kilo</td><td>k</td><td>$10^{3}$</td></tr><tr><td>centi</td><td>c</td><td>$10^{-2}$</td></tr><tr><td>milli</td><td>m</td><td>$10^{-3}$</td></tr><tr><td>micro</td><td>μ</td><td>$10^{-6}$</td></tr><tr><td>nano</td><td>n</td><td>$10^{-9}$</td></tr></tbody></table>"
+    },
+    {
+      "front": "Differentiate between precision and accuracy.",
+      "back": "<b>Precision:</b> How close measurements are to each other (repeatability). Affected by random errors.<br><b>Accuracy:</b> How close measurements are to true value. Affected by systematic errors."
+    },
+    {
+      "front": "Differentiate between systematic and random errors.",
+      "back": "<b>Systematic errors:</b> Consistent bias affecting accuracy. Reduced by recalibration. Example: zero error.<br><b>Random errors:</b> Unpredictable fluctuations affecting precision. Reduced by repeating measurements and averaging."
+    },
+    {
+      "front": "What is zero error?",
+      "back": "A type of systematic error where an instrument gives a non-zero reading when the true value is zero. Must be subtracted from all readings."
+    },
+    {
+      "front": "How do you express a measurement with uncertainty?",
+      "back": "Best estimate ± uncertainty. Example: $12.50 \\pm 0.05$ cm. The true value lies within this range."
+    },
+    {
+      "front": "How do you calculate percentage uncertainty?",
+      "back": "$\\text{Percentage Uncertainty} = \\frac{\\text{absolute uncertainty}}{\\text{measured value}} \\times 100\\%$<br>Example: For $1.6 \\pm 0.1$ mA: $\\frac{0.1}{1.6} \\times 100\\% = 6.25\\%$"
+    },
+    {
+      "front": "Rules for combining uncertainties: Addition/Subtraction",
+      "back": "Add the <b>absolute uncertainties</b>.<br>Example: $(55.0 \\pm 0.5) - (24.0 \\pm 0.7) = 31.0 \\pm 1.2$ cm"
+    },
+    {
+      "front": "Rules for combining uncertainties: Multiplication/Division",
+      "back": "Add the <b>percentage uncertainties</b>.<br>Example: Speed = distance/time, $\\frac{\\Delta v}{v} = \\frac{\\Delta s}{s} + \\frac{\\Delta t}{t}$"
+    },
+    {
+      "front": "Rules for combining uncertainties: Powers",
+      "back": "Multiply the <b>percentage uncertainty</b> by the power.<br>Example: For $V = \\frac{4}{3}\\pi r^3$, $\\frac{\\Delta V}{V} = 3 \\times \\frac{\\Delta r}{r}$"
+    },
+    {
+      "front": "How to find uncertainty from instruments?",
+      "back": "<b>Analogue:</b> ±½ smallest division<br><b>Digital:</b> ± last significant digit<br><b>Repeated measurements:</b> ±½ range"
+    },
+    {
+      "front": "Distinguish between scalar and vector quantities with examples.",
+      "back": "<b>Scalar:</b> Magnitude only - distance, speed, mass, energy, time, density<br><b>Vector:</b> Magnitude + direction - displacement, velocity, force, acceleration, weight"
+    },
+    {
+      "front": "Distance vs Displacement",
+      "back": "<b>Distance:</b> Scalar - total path length<br><b>Displacement:</b> Vector - straight-line distance from start to finish with direction"
+    },
+    {
+      "front": "Speed vs Velocity",
+      "back": "<b>Speed:</b> Scalar - distance per time ($m/s$)<br><b>Velocity:</b> Vector - displacement per time ($m/s$ with direction)<br>Object can have constant speed but changing velocity if direction changes."
+    },
+    {
+      "front": "How to find resultant of perpendicular vectors?",
+      "back": "<b>Magnitude:</b> Pythagoras $R = \\sqrt{A^2 + B^2}$<br><b>Direction:</b> $\\theta = \\tan^{-1}(\\frac{\\text{opposite}}{\\text{adjacent}})$<br>Example: 2.7 m/s North + 5.1 m/s East = 5.8 m/s at 28° North of East"
+    },
+    {
+      "front": "How to resolve a vector into components?",
+      "back": "Vector F at angle θ to horizontal:<br><b>Horizontal:</b> $F_x = F \\cos\\theta$<br><b>Vertical:</b> $F_y = F \\sin\\theta$"
+    },
+    {
+      "front": "What are the essential physical estimates to memorize?",
+      "back": "<b>Atomic:</b> Atom ≈ $10^{-10}$ m, Nucleus ≈ $10^{-15}$ m<br><b>Human:</b> Mass ≈ 70 kg, Height ≈ 2 m<br><b>Constants:</b> Sound speed ≈ 330 m/s, Water density = 1000 kg/m³, Atmospheric pressure = $10^5$ Pa"
+    },
+    {
+      "front": "How to estimate energy for climbing stairs?",
+      "back": "Use $\\Delta E_p = mgh$<br>m ≈ 70 kg, g ≈ 10 N/kg, h ≈ 3 m<br>$\\Delta E_p = 70 \\times 10 \\times 3 = 2100$ J"
+    },
+    {
+      "front": "How to estimate pressure under 10m of water?",
+      "back": "Use $P = \\rho g h$<br>ρ = 1000 kg/m³, g = 10 N/kg, h = 10 m<br>$P = 1000 \\times 10 \\times 10 = 10^5$ Pa (atmospheric pressure)"
+    },
+    {
+      "front": "What does equilibrium mean for forces?",
+      "back": "Forces in equilibrium form a closed vector triangle when drawn head-to-tail. The resultant force is zero."
+    },
+    {
+      "front": "Methods for vector addition",
+      "back": "<b>Triangle method:</b> Link head-to-tail, resultant from tail of first to head of last<br><b>Parallelogram method:</b> Link tail-to-tail, resultant is diagonal of parallelogram"
+    }
+  ]
+},
+{
+  "topic": "2. Kinematics",
+  "cards": [
+    {
+      "front": "Differentiate between Distance, Displacement, Speed, and Velocity.",
+      "back": "<strong>Distance (scalar):</strong> Total path length traveled. <em>e.g., Running 300 m around a track.</em><br><strong>Displacement (vector):</strong> Straight-line change in position from start to end, with direction. <em>e.g., Ending 100 m to the right of your start after a 300 m race.</em><br><strong>Speed (scalar):</strong> Rate of change of distance. Average Speed = Total Distance / Time.<br><strong>Velocity (vector):</strong> Rate of change of displacement. Average Velocity = Total Displacement / Time."
+    },
+    {
+      "front": "What is the formula for average acceleration?",
+      "back": "Average acceleration is the rate of change of velocity. <br>$a = \\frac{\\Delta v}{\\Delta t} = \\frac{(v - u)}{t}$ <br>Where $\\Delta v$ is the change in velocity (final - initial) and $\\Delta t$ is the time taken. Unit is $m \\cdot s^{-2}$."
+    },
+    {
+      "front": "How do you interpret Distance-Time and Displacement-Time graphs?",
+      "back": "<strong>Distance-Time Graph:</strong><ul><li><strong>Gradient</strong> = Speed</li><li>Straight diagonal line = Constant Speed</li><li>Curved line = Acceleration</li><li>Horizontal line = At Rest</li></ul><strong>Displacement-Time Graph:</strong><ul><li><strong>Gradient</strong> = Velocity</li><li>Straight diagonal line = Constant Velocity</li><li>Curved line = Acceleration</li><li>Negative gradient = Motion in negative direction</li></ul>"
+    },
+    {
+      "front": "How do you interpret Velocity-Time and Acceleration-Time graphs?",
+      "back": "<strong>Velocity-Time Graph:</strong><ul><li><strong>Gradient</strong> = Acceleration</li><li><strong>Area under graph</strong> = Displacement</li><li>Straight diagonal line = Constant Acceleration</li><li>Horizontal line = Constant Velocity</li></ul><strong>Acceleration-Time Graph:</strong><ul><li><strong>Area under graph</strong> = Change in Velocity</li><li>Horizontal line = Constant Acceleration</li><li>Zero line (blank) = Constant Velocity</li></ul>"
+    },
+    {
+      "front": "List the kinematic equations for uniformly accelerated motion (SUVAT equations).",
+      "back": "For constant acceleration in a straight line:<br><li>$v = u + at$</li><li>$s = \\frac{(u + v)}{2}t$</li><li>$s = ut + \\frac{1}{2}at^2$</li><li>$v^2 = u^2 + 2as$</li><br>Where: <strong>s</strong>=displacement, <strong>u</strong>=initial velocity, <strong>v</strong>=final velocity, <strong>a</strong>=acceleration, <strong>t</strong>=time."
+    },
+    {
+      "front": "A car accelerates from 50 m/s to 10 m/s in 20 s. Find the displacement.",
+      "back": "Using $s = \\frac{(u + v)}{2}t$:<br>$s = \\frac{(50 + 10)}{2} \\times 20 = 600 \\, m$<br><em>This is a typical problem where you identify known variables (u, v, t) and select the correct SUVAT equation.</em>"
+    },
+    {
+      "front": "Describe projectile motion and state the key equations.",
+      "back": "2D motion under gravity. Components are independent.<br><strong>Horizontal (no acceleration):</strong><br>$v_x = u \\cos\\theta$, $x = (u \\cos\\theta) t$<br><strong>Vertical (acceleration = g):</strong><br>$v_y = u \\sin\\theta$, $y = (u \\sin\\theta) t - \\frac{1}{2}gt^2$<br><strong>Range:</strong> $R = \\frac{u^2 \\sin 2\\theta}{g}$ (Max at 45°)<br><strong>Time of Flight:</strong> $T = \\frac{2u \\sin\\theta}{g}$"
+    },
+    {
+      "front": "A ball is thrown at 12 m/s at 50°. What is its maximum height?",
+      "back": "At max height, vertical velocity $v_y=0$. Use $v_y^2 = u_y^2 + 2as$.<br>$u_y = 12 \\sin(50^\\circ)$<br>$0 = (12\\sin50)^2 + 2(-9.81)s$<br>$s = \\frac{(12\\sin50)^2}{2 \\times 9.81} \\approx 4.3 \\, m$<br><em>Key is to resolve the initial velocity and use the vertical component with acceleration due to gravity.</em>"
+    },
+    {
+      "front": "What is terminal velocity and how is it reached?",
+      "back": "The constant maximum speed reached by a falling object when the upward drag force equals the downward weight. Net force = 0, so acceleration = 0. <em>e.g., A skydiver accelerates until air resistance increases enough to balance their weight, then falls at a constant terminal velocity.</em>"
+    },
+    {
+      "front": "What is a drag force and how does it depend on speed?",
+      "back": "A force opposing motion through a fluid (liquid or gas), like air resistance or friction. Its magnitude <strong>increases with the object's speed</strong>. At low speeds, the effect is small; at high speeds, it's significant. For a car: Driving Force > Drag Force = Accelerates; Driving Force = Drag Force = Constant Velocity."
+    },
+    {
+      "front": "A car (mass 800 kg) has a 3 kN driving force and accelerates at 2 m/s². What is the frictional force?",
+      "back": "Use Newton's 2nd Law: Resultant Force $F = ma = 800 \\times 2 = 1600 \\, N$.<br>Resultant Force = Driving Force - Frictional Force.<br>$1600 = 3000 - F_F$<br>$F_F = 3000 - 1600 = 1400 \\, N$<br><em>This shows how the resultant force is the difference between driving and resistive forces.</em>"
+    },
+    {
+      "front": "How can you find displacement from a velocity-time graph?",
+      "back": "The <strong>area under a velocity-time graph</strong> equals the displacement. For complex shapes, split the area into triangles and rectangles. <em>e.g., For a triangle: Area = $\\frac{1}{2} \\times$ base $\\times$ height. Remember to convert units if necessary (e.g., km/h to m/s).</em>"
+    },
+    {
+      "front": "What is the acceleration of free fall (g) and how is it measured experimentally?",
+      "back": "On Earth, $g \\approx 9.81 \\, m\\,s^{-2}$, the acceleration of an object falling freely (with negligible air resistance). It's measured by dropping a ball-bearing through light gates at different heights (h), timing its fall (t), and using the kinematic equation $s = ut + \\frac{1}{2}at^2$. A graph of $\\frac{2h}{t}$ against t has a gradient equal to g."
+    },
+    {
+      "front": "Skydiver A has a greater mass than Skydiver B. Who has a higher terminal velocity and why?",
+      "back": "Skydiver A. Terminal velocity is reached when weight = drag force. A greater mass means a greater weight. Therefore, a higher speed (and thus a greater drag force) is needed to balance the larger weight. So, the heavier skydiver has a higher terminal velocity."
+    }
+  ]
+},
+{
+  "topic": "3. Dynamics",
+  "cards": [
+    {
+      "front": "Differentiate between mass and weight.",
+      "back": "<strong>Mass</strong> is the amount of matter in an object (kg). It is a scalar and constant everywhere.<br><strong>Weight</strong> is the force of gravity on that mass (N). It is a vector and depends on location. $W = mg$<br><strong>Example:</strong> A 70 kg person has a mass of 70 kg everywhere. On Earth, their weight is $70 \\times 9.81 = 687\\,N$, but on the Moon, it's only $70 \\times 1.63 = 114\\,N$."
+    },
+    {
+      "front": "State Newton's First Law of Motion.",
+      "back": "A body remains at rest or moves with constant velocity unless acted upon by a resultant external force.<br><strong>Example:</strong> A car moving at a constant velocity has a driving force of 6 kN. The frictional forces opposing motion must also be 6 kN for the resultant force to be zero."
+    },
+    {
+      "front": "State Newton's Second Law of Motion.",
+      "back": "The resultant force on an object is directly proportional to the rate of change of its momentum. $F = \\frac{\\Delta p}{\\Delta t}$<br>This can also be written as $F = ma$.<br><strong>Example:</strong> A resultant force of 72 N causes a girl on a skateboard to accelerate from 1 m/s to 4 m/s in 2.5 s. The combined mass is found using $F = m \\frac{\\Delta v}{\\Delta t}$."
+    },
+    {
+      "front": "State Newton's Third Law of Motion.",
+      "back": "When two bodies interact, they exert forces on each other that are equal in magnitude, opposite in direction, and of the same type. These forces act on <strong>different</strong> objects.<br><strong>Example:</strong> A book rests on a table. The Earth pulls the book down (weight), and the book pulls the Earth up with an equal force. The table pushes the book up (reaction), and the book pushes the table down with an equal force."
+    },
+    {
+      "front": "Define linear momentum and state its equation.",
+      "back": "Linear momentum is the product of an object's mass and its velocity. It is a vector quantity.<br>$p = mv$<br>Unit: $kg\\,m\\,s^{-1}$<br><strong>Example:</strong> A 60 g tennis ball moving at 75 m/s has a momentum of $0.06 \\times 75 = 4.5\\,kg\\,m\\,s^{-1}$."
+    },
+    {
+      "front": "How is force related to momentum?",
+      "back": "Force is defined as the rate of change of momentum.<br>$F = \\frac{\\Delta p}{\\Delta t}$<br>where $\\Delta p = p_{final} - p_{initial}$.<br><strong>Example:</strong> A car (1500 kg) hits a wall at 15 m/s and rebounds at 5 m/s. The change in momentum is $1500 \\times (-5) - 1500 \\times 15 = -30000\\,kg\\,m\\,s^{-1}$. If this happens over 3 s, the average force is $F = -30000 / 3 = -10000\\,N$."
+    },
+    {
+      "front": "State the principle of conservation of linear momentum.",
+      "back": "For a closed system with no external forces, the total momentum before an interaction equals the total momentum after.<br>$m_A u_A + m_B u_B = m_A v_A + m_B v_B$<br><strong>Example:</strong> Ball A ($m_A$) moving at $u_A$ hits stationary Ball B ($m_B$). After the collision, Ball A rebounds with velocity $-v_A$ and Ball B moves with $v_B$. So, $m_A u_A = -m_A v_A + m_B v_B$."
+    },
+    {
+      "front": "Differentiate between elastic and inelastic collisions.",
+      "back": "In <strong>all</strong> collisions, momentum is conserved.<br><strong>Elastic:</strong> Kinetic energy is also conserved. Objects typically bounce apart.<br><strong>Inelastic:</strong> Kinetic energy is <strong>not</strong> conserved (converted to heat, sound, etc.). Objects may stick together.<br><strong>Example (Inelastic):</strong> Two trolleys stick together after colliding. $E_k$ before > $E_k$ after."
+    },
+    {
+      "front": "What is the difference between internal and external forces?",
+      "back": "<strong>Internal forces</strong> are forces between objects within a defined system (e.g., tension in a spring, molecular forces).<br><strong>External forces</strong> are forces from outside the system (e.g., gravity, friction).<br><strong>Example:</strong> For a mass on a spring, the spring force is internal, but the weight of the mass is an external force."
+    },
+    {
+      "front": "How do you calculate the change in momentum for an object rebounding off a wall in 2D?",
+      "back": "Resolve the velocity into components. The change in momentum is $\\Delta p = m(v_f - v_i)$ for the relevant direction.<br><strong>Example:</strong> A ball hits a wall. Its initial horizontal velocity is $v_i = 15 \\cos 60 = 7.5\\,m/s$. It rebounds at $v_f = -4.6\\,m/s$. For a mass of 0.06 kg, $\\Delta p = 0.06 \\times (-4.6 - 7.5) = -0.73\\,N\\,s$."
+    },
+    {
+      "front": "What is a 'closed' or 'isolated' system?",
+      "back": "A system on which <strong>no external forces</strong> act. In such a system, the total momentum is always conserved."
+    },
+    {
+      "front": "What is the 'cos sandwich' trick for resolving vectors?",
+      "back": "The component of a vector that 'sandwiches' the angle (is adjacent to it) uses the cosine function.<br><strong>Example:</strong> For a vector $R$ at an angle $\\theta$ to the horizontal, the horizontal component is $R\\cos\\theta$ and the vertical component is $R\\sin\\theta$."
+    },
+    {
+      "front": "For a collision where two objects stick together, how do you find their common velocity?",
+      "back": "Use conservation of momentum for a perfectly inelastic collision.<br>$m_A u_A + m_B u_B = (m_A + m_B)v$<br><strong>Example:</strong> Trolley A (0.80 kg, 3.0 m/s) hits stationary Trolley B (1.60 kg). They stick. Momentum before: $0.8 \\times 3.0 = 2.4\\,kg\\,m/s$. Combined mass is 2.4 kg. Common velocity: $v = 2.4 / 2.4 = 1.0\\,m/s$."
+    }
+  ]
+},
+{
+  "topic": "4. Forces, Density & Pressure",
+  "cards": [
+    {
+      "front": "Define density and state its formula with units.",
+      "back": "Density (ρ) is mass per unit volume: $\\rho = \\frac{m}{V}$<br>Units: kg/m³<br>Example: A 73 kg slab with volume 0.017 m³ has density $\\frac{73}{0.017} = 4300$ kg/m³"
+    },
+    {
+      "front": "Define pressure and state its formula with units.",
+      "back": "Pressure (p) is force per unit area: $p = \\frac{F}{A}$<br>Units: Pascals (Pa) where 1 Pa = 1 N/m²<br>Example: High heels exert more pressure than flat shoes because weight is concentrated on smaller area"
+    },
+    {
+      "front": "What is hydrostatic pressure and its formula?",
+      "back": "Pressure within a fluid due to its weight: $\\Delta p = \\rho g \\Delta h$<br>Example: In seawater (ρ=1020 kg/m³), pressure increases by ~10 kPa per meter depth"
+    },
+    {
+      "front": "State Archimedes' Principle and the upthrust formula.",
+      "back": "Upthrust = weight of displaced fluid: $F = \\rho g V$<br>Example: An object displacing 0.5 m³ of water (ρ=1000 kg/m³) experiences upthrust = 1000 × 9.81 × 0.5 = 4905 N"
+    },
+    {
+      "front": "When does an object float or sink?",
+      "back": "Floats if average density ≤ fluid density<br>Sinks if average density > fluid density<br>Example: Ice (ρ=917 kg/m³) floats in seawater (ρ=1020 kg/m³) with 90% submerged"
+    },
+    {
+      "front": "Define moment/torque of a force.",
+      "back": "Turning effect about a pivot: $\\tau = Fd$<br>Where d = perpendicular distance from pivot<br>Example: 5 N force at 0.3 m from pivot gives moment = 1.5 Nm"
+    },
+    {
+      "front": "What is a couple and its torque?",
+      "back": "Pair of equal, opposite, parallel forces: $\\tau = Fd$<br>Where d = distance between forces<br>Example: Two 10 N forces 0.4 m apart on steering wheel give torque = 4 Nm"
+    },
+    {
+      "front": "State the two conditions for equilibrium.",
+      "back": "1. Net resultant force = 0 ($\\Sigma F = 0$)<br>2. Net resultant torque = 0 ($\\Sigma \\tau = 0$)<br>Example: Balanced beam has equal clockwise and anticlockwise moments"
+    },
+    {
+      "front": "What is center of gravity and how does it affect stability?",
+      "back": "Point where weight appears to act. Lower CG + wider base = more stable<br>Example: Racing cars have low CG and wide wheelbase for stability"
+    },
+    {
+      "front": "How do you calculate volume for different shapes?",
+      "back": "Sphere: $\\frac{4}{3}\\pi r^3$<br>Cube: $s^3$<br>Cylinder: $\\pi r^2 h$<br>Example: Cylinder with r=0.1 m, h=0.5 m has volume = π × 0.1² × 0.5 = 0.0157 m³"
+    },
+    {
+      "front": "What is the principle of moments?",
+      "back": "For equilibrium: Sum of clockwise moments = Sum of anticlockwise moments<br>Example: $F_1d_1 + F_3d_3 = F_2d_2$ for balanced beam"
+    },
+    {
+      "front": "How does pressure change in a U-tube manometer?",
+      "back": "Pressure difference = $\\Delta p = \\rho g \\Delta h$<br>Liquid level difference indicates pressure difference<br>Example: Used to compare densities or measure pressure differences"
+    },
+    {
+      "front": "What is total pressure at depth in a fluid?",
+      "back": "Total pressure = Hydrostatic pressure + Atmospheric pressure<br>$p_{total} = \\rho g h + p_{atm}$<br>Example: At 15 m depth in sea, pressure = (1020×9.81×15) + 100,000 = 250 kPa"
+    },
+    {
+      "front": "How do you handle forces applied at angles to pivots?",
+      "back": "Use perpendicular component: $\\tau = Fd\\cos\\theta$<br>Example: 4 N force at 30° to ruler: moment = 4 × 0.3 × cos(30°) = 1.04 Nm"
+    }
+  ]
+},
+{
+  "topic": "5. Work, Energy & Power",
+  "cards": [
+    {
+      "front": "Define work done and state its formula.",
+      "back": "Work is done when a force causes displacement in the direction of the force. $W = Fs$ where F is force (N), s is displacement (m), and W is work done in joules (J).<br><br>Example: Pushing a box 5m with a 10N force does $W = 10 \\times 5 = 50J$ of work."
+    },
+    {
+      "front": "What is gravitational potential energy (GPE) and its formula?",
+      "back": "GPE is energy stored due to position in a gravitational field. $\\Delta E_p = mg\\Delta h$ where m is mass (kg), g is gravitational field strength (9.81 N/kg), and Δh is height change (m).<br><br>Example: Lifting a 2kg book 1.5m increases GPE by $2 \\times 9.81 \\times 1.5 = 29.4J$."
+    },
+    {
+      "front": "What is kinetic energy and its formula?",
+      "back": "Kinetic energy is energy due to motion. $E_k = \\frac{1}{2}mv^2$ where m is mass (kg) and v is velocity (m/s).<br><br>Example: A 1000kg car at 20m/s has KE = $0.5 \\times 1000 \\times 20^2 = 200,000J$."
+    },
+    {
+      "front": "State the Principle of Conservation of Energy.",
+      "back": "Energy cannot be created or destroyed, only transferred between stores. Total energy in a closed system remains constant.<br><br>Example: A falling ball converts GPE to KE - energy is conserved but transferred."
+    },
+    {
+      "front": "What are the main energy stores?",
+      "back": "Kinetic, Gravitational Potential, Elastic, Electrostatic, Magnetic, Chemical, Nuclear, Thermal"
+    },
+    {
+      "front": "What are the main energy transfer methods?",
+      "back": "Mechanical (forces), Electrical (current), Heating (temperature difference), Radiation (waves)"
+    },
+    {
+      "front": "What is energy dissipation?",
+      "back": "When energy is transferred to unwanted stores (usually thermal energy of surroundings).<br><br>Example: In a car engine, only ~25% of fuel energy propels the car - the rest is dissipated as heat and sound."
+    },
+    {
+      "front": "How is efficiency calculated?",
+      "back": "$\\text{Efficiency} = \\frac{\\text{useful energy output}}{\\text{total energy input}} \\times 100\\%$<br>Or using power: $\\text{Efficiency} = \\frac{\\text{useful power output}}{\\text{total power input}} \\times 100\\%$<br><br>Example: A motor with 800W input and 600W useful output has 75% efficiency."
+    },
+    {
+      "front": "Define power and state its formulas.",
+      "back": "Power is the rate of energy transfer or work done.<br>$P = \\frac{E}{t} = \\frac{W}{t} = Fv$<br>Where P is power (watts), E is energy (J), t is time (s), W is work (J), F is force (N), v is velocity (m/s).<br><br>Example: Lifting 100N weight 2m in 4s: $P = \\frac{100 \\times 2}{4} = 50W$"
+    },
+    {
+      "front": "How is the formula P = Fv derived?",
+      "back": "From basic power and work formulas:<br>$P = \\frac{W}{t}$ and $W = Fs$<br>At constant velocity: $s = vt$<br>So: $P = \\frac{F \\times vt}{t} = Fv$"
+    },
+    {
+      "front": "What is the relationship between GPE and height?",
+      "back": "GPE is directly proportional to height: $E_p \\propto h$<br>Graph of GPE vs height is a straight line through origin.<br><br>Example: Doubling height doubles GPE for same mass."
+    },
+    {
+      "front": "A 70kg person climbs 12m of stairs. Calculate GPE gain.",
+      "back": "Using $\\Delta E_p = mg\\Delta h$:<br>$\\Delta E_p = 70 \\times 9.81 \\times 12 = 8230J$<br>They gain approximately 8200J of GPE."
+    },
+    {
+      "front": "A 500kg object's speed increases from 10m/s to 30m/s. Calculate KE increase.",
+      "back": "Initial KE = $0.5 \\times 500 \\times 10^2 = 25,000J$<br>Final KE = $0.5 \\times 500 \\times 30^2 = 225,000J$<br>Increase = $225,000 - 25,000 = 200,000J$"
+    },
+    {
+      "front": "Why does GPE = mgh only work near Earth's surface?",
+      "back": "This assumes g is constant (uniform gravitational field). In space, g decreases with distance, so the formula doesn't apply."
+    },
+    {
+      "front": "Describe energy transfers for a rollercoaster going A→B→C→D.",
+      "back": "A (high): GPE store<br>B (low): GPE → KE<br>C (high): KE → GPE<br>D (low): GPE → KE<br>Pattern: GPE - KE - GPE - KE"
+    }
+  ]
+},
+{
+  "topic": "6. Deformation of Solids",
+  "cards": [
+    {
+      "front": "Define Elastic and Plastic Deformation",
+      "back": "<strong>Elastic Deformation:</strong> Material returns to original shape when load is removed<br><strong>Plastic Deformation:</strong> Material remains permanently deformed when load is removed<br><em>Example:</em> Stretching a spring slightly (elastic) vs bending a paperclip permanently (plastic)"
+    },
+    {
+      "front": "What is the Elastic Limit?",
+      "back": "The maximum stress a material can withstand without permanent deformation<br><em>Key point:</em> Beyond this point, plastic deformation occurs<br><em>On graph:</em> Point where material stops returning to original length"
+    },
+    {
+      "front": "Differentiate between Limit of Proportionality and Elastic Limit",
+      "back": "<strong>Limit of Proportionality:</strong> Point where force and extension stop being directly proportional<br><strong>Elastic Limit:</strong> Point beyond which material doesn't return to original shape<br><em>Note:</em> Elastic limit is at slightly higher extension than limit of proportionality"
+    },
+    {
+      "front": "State Hooke's Law and its formula",
+      "back": "Extension is directly proportional to applied force, up to limit of proportionality<br>$F = kx$<br>Where:<br>- $F$ = force (N)<br>- $k$ = spring constant (N/m)<br>- $x$ = extension (m)<br><em>Example:</em> Double the force, double the extension (within proportional limit)"
+    },
+    {
+      "front": "Define Spring Constant (k)",
+      "back": "Force required per unit extension<br>$k = \\frac{F}{x}$<br><strong>Units:</strong> N/m<br><em>Interpretation:</em> Higher k = stiffer spring<br><em>On graph:</em> Gradient of force-extension graph in Hooke's law region"
+    },
+    {
+      "front": "Differentiate between Brittle and Ductile Materials",
+      "back": "<strong>Brittle:</strong> Little/no plastic deformation, breaks suddenly<br><em>Examples:</em> Glass, concrete<br><strong>Ductile:</strong> Large plastic region, stretches before breaking<br><em>Examples:</em> Copper, rubber, steel<br><em>On graph:</em> Brittle = straight line then break; Ductile = curves before breaking"
+    },
+    {
+      "front": "Define Tensile Stress and Strain",
+      "back": "<strong>Stress ($\\sigma$):</strong> Force per unit cross-sectional area<br>$\\sigma = \\frac{F}{A}$ (Pa)<br><strong>Strain ($\\epsilon$):</strong> Extension per unit length<br>$\\epsilon = \\frac{x}{L}$ (no units)<br><em>Example:</em> Thicker wire can withstand more force for same stress"
+    },
+    {
+      "front": "Define Young Modulus (E)",
+      "back": "Ratio of stress to strain<br>$E = \\frac{\\sigma}{\\epsilon} = \\frac{FL}{Ax}$<br><strong>Units:</strong> Pa<br><em>Interpretation:</em> Measure of stiffness<br><em>On graph:</em> Gradient of stress-strain graph<br><em>Memory aid:</em> 'When you're stressed, you show the strain'"
+    },
+    {
+      "front": "How to calculate cross-sectional area of a wire?",
+      "back": "For circular wire:<br>$A = \\pi r^2 = \\frac{\\pi d^2}{4}$<br>Where:<br>- $r$ = radius<br>- $d$ = diameter<br><em>Experimental tip:</em> Measure diameter at multiple points and average"
+    },
+    {
+      "front": "What does the area under a force-extension graph represent?",
+      "back": "<strong>Work Done</strong> in stretching the material<br><strong>Elastic Potential Energy</strong> stored (if within elastic limit)<br><em>For Hooke's Law region:</em> $EPE = \\frac{1}{2}Fx = \\frac{1}{2}kx^2$<br><em>For non-linear region:</em> Calculate total area under curve"
+    },
+    {
+      "front": "How to calculate elastic potential energy?",
+      "back": "$EPE = \\frac{1}{2}Fx = \\frac{1}{2}kx^2$<br>Where:<br>- $F$ = maximum force<br>- $x$ = extension<br>- $k$ = spring constant<br><em>Condition:</em> Only valid within limit of proportionality<br><em>Example:</em> Spring with k=100 N/m extended 0.1m stores 0.5J"
+    },
+    {
+      "front": "Describe the Young Modulus experiment setup",
+      "back": "<strong>Equipment:</strong> Wire clamped between blocks, pulley, weights, ruler, micrometer<br><strong>Measure:</strong> Original length, diameter, extension with increasing loads<br><strong>Calculate:</strong> $E = \\text{gradient} \\times \\frac{L}{A}$<br><em>Improvements:</em> Measure diameter at multiple points, use longer wire, repeat readings"
+    },
+    {
+      "front": "How to determine Young Modulus from a force-extension graph?",
+      "back": "1. Find gradient of linear region ($\\frac{\\Delta F}{\\Delta x}$)<br>2. Calculate cross-sectional area $A = \\frac{\\pi d^2}{4}$<br>3. Use formula: $E = \\text{gradient} \\times \\frac{L}{A}$<br>Where L is original length of wire"
+    },
+    {
+      "front": "What characterizes rubber's force-extension behavior?",
+      "back": "After initial linear region, gradient increases significantly - large force needed for small extension<br><em>Reason:</em> Long chain molecules become fully aligned<br><em>Application:</strong> Rubber bands can stretch to twice original length"
+    },
+    {
+      "front": "Worked Example: Spring extended 40mm with 8.3N force. Calculate energy stored.",
+      "back": "$EPE = \\frac{1}{2}Fx = \\frac{1}{2} \\times 8.3 \\times (40\\times10^{-3})$<br>$= 0.166 \\text{ J} \\approx 0.17 \\text{ J}$<br><em>Note:</em> Convert mm to meters, answer to 2 significant figures"
+    },
+    {
+      "front": "Worked Example: Wire extends 0.50% with 92N load. Area = 0.04mm². Find Young Modulus.",
+      "back": "$\\sigma = \\frac{92}{0.04\\times10^{-6}} = 2.3\\times10^9$ Pa<br>$\\epsilon = 0.005$<br>$E = \\frac{2.3\\times10^9}{0.005} = 4.6\\times10^{11}$ Pa<br><em>Key steps:</em> Convert area to m², strain as decimal"
+    }
+  ]
+},
+{
+  "topic": "7. Waves",
+  "cards": [
+    {
+      "front": "Define: Amplitude, Wavelength, Frequency, Period, and Speed.",
+      "back": "<strong>Amplitude (A):</strong> Maximum displacement from equilibrium position (meters).<br><strong>Wavelength (λ):</strong> Distance between two identical points on successive waves (meters).<br><strong>Frequency (f):</strong> Number of complete oscillations per second (Hz). $f = \\frac{1}{T}$<br><strong>Period (T):</strong> Time for one complete oscillation (seconds).<br><strong>Speed (v):</strong> Distance wave travels per unit time (m/s)."
+    },
+    {
+      "front": "State the wave equation and explain the relationship between frequency and wavelength.",
+      "back": "$v = f\\lambda$<br>At constant speed, wavelength and frequency are inversely proportional:<br>- Higher frequency → shorter wavelength<br>- Lower frequency → longer wavelength<br><strong>Example:</strong> Light has constant speed, so blue light (high frequency) has shorter wavelength than red light (low frequency)."
+    },
+    {
+      "front": "Compare transverse and longitudinal waves with examples.",
+      "back": "<strong>Transverse Waves:</strong> Oscillations perpendicular to direction of travel. Can be polarized. <em>Examples: EM waves, guitar string vibrations</em><br><strong>Longitudinal Waves:</strong> Oscillations parallel to direction of travel. Cannot be polarized. <em>Examples: Sound waves, ultrasound</em><br>Both can be represented graphically as displacement-time graphs."
+    },
+    {
+      "front": "What is wave intensity and how does it relate to amplitude and distance?",
+      "back": "<strong>Intensity (I)</strong> = Power per unit area. $I = \\frac{P}{A}$ (W/m²)<br>Intensity ∝ Amplitude² and ∝ Frequency²<br><strong>Inverse Square Law:</strong> $I \\propto \\frac{1}{r^2}$<br><strong>Example:</strong> Doubling distance reduces intensity to ¼. Doubling amplitude increases intensity by 4×."
+    },
+    {
+      "front": "List the EM spectrum in order of increasing frequency and describe key properties.",
+      "back": "<strong>Radio → Microwaves → Infrared → Visible → UV → X-rays → Gamma</strong><br>All EM waves:<br>- Are transverse<br>- Travel at $3 \\times 10^8$ m/s in vacuum<br>- Can be polarized, reflected, refracted, diffracted<br>Higher frequency = more energy = more ionizing (harmful)"
+    },
+    {
+      "front": "What is polarisation and how do polarising filters work?",
+      "back": "Polarisation restricts transverse wave oscillations to one plane.<br><strong>Polarising filters</strong> have parallel slits that only transmit waves vibrating in that plane.<br><strong>Example:</strong> Polaroid sunglasses block horizontally polarized glare by having vertical transmission axes."
+    },
+    {
+      "front": "State Malus's Law and the 'half rule' for polarisation.",
+      "back": "<strong>Half Rule:</strong> $I = \\frac{I_0}{2}$ (unpolarised light through 1 polariser)<br><strong>Malus's Law:</strong> $I = I_0\\cos^2\\theta$<br>Where $I_0$ = incident intensity, $\\theta$ = angle between polariser axes<br><strong>Example:</strong> At 90°, $\\cos^2(90) = 0$ so no light transmitted"
+    },
+    {
+      "front": "What is the Doppler Effect for sound waves?",
+      "back": "Frequency change due to relative motion between source and observer.<br><strong>Source moving toward observer:</strong> Higher frequency (shorter wavelength)<br><strong>Source moving away:</strong> Lower frequency (longer wavelength)<br><strong>Equation:</strong> $f_o = f_s\\left(\\frac{v}{v \\pm v_s}\\right)$<br>Use + when moving away, - when moving toward"
+    },
+    {
+      "front": "What is phase difference and how is it measured?",
+      "back": "Phase difference indicates how much one wave leads/lags another.<br><strong>Measured in:</strong> Wavelength fractions, degrees, or radians<br>- In phase: 0°, 360°, $2\\pi$ rad<br>- Anti-phase: 180°, $\\pi$ rad<br><strong>Example:</strong> ¼ wavelength = 90° = $\\pi/2$ rad phase difference"
+    },
+    {
+      "front": "How do you use a cathode-ray oscilloscope (CRO) to measure wave properties?",
+      "back": "CRO displays voltage (y-axis) vs time (x-axis).<br><strong>Time-base:</strong> seconds per division (s/div)<br><strong>Measure period (T):</strong> Count divisions for one wavelength × time-base<br><strong>Frequency:</strong> $f = \\frac{1}{T}$<br><strong>Amplitude:</strong> Vertical displacement from equilibrium"
+    },
+    {
+      "front": "Compare progressive and stationary waves.",
+      "back": "<strong>Progressive Waves:</strong> Transfer energy through medium/vacuum. Particles oscillate about fixed points.<br><strong>Stationary Waves:</strong> No net energy transfer. Have fixed nodes (no displacement) and antinodes (max displacement).<br><strong>Example:</strong> Sound waves are progressive; vibrating guitar string creates stationary waves."
+    },
+    {
+      "front": "What are compressions and rarefactions in longitudinal waves?",
+      "back": "<strong>Compressions:</strong> Regions where particles are closer together (high pressure)<br><strong>Rarefactions:</strong> Regions where particles are further apart (low pressure)<br>These regions move along the wave direction in sound waves."
+    }
+  ]
+},
+{
+  "topic": "8. Superposition",
+  "cards": [
+    {
+      "front": "State the principle of superposition.",
+      "back": "When two or more waves meet at a point, the resultant displacement is the vector sum of the individual displacements of each wave."
+    },
+    {
+      "front": "Define interference and coherence.",
+      "back": "<strong>Interference:</strong> The superposition of waves from two coherent sources to produce a resultant wave with a new amplitude.<br><strong>Coherence:</strong> Two wave sources are coherent if they have the same frequency and a constant phase difference (e.g., laser light)."
+    },
+    {
+      "front": "What are the conditions for constructive and destructive interference?",
+      "back": "<strong>Constructive:</strong> Path difference = $n\\lambda$ (where $n = 0, 1, 2...$)<br>Example: Two peaks or two troughs meeting<br><strong>Destructive:</strong> Path difference = $(n + \\frac{1}{2})\\lambda$<br>Example: A peak meeting a trough"
+    },
+    {
+      "front": "What is diffraction?",
+      "back": "The spreading out of waves as they pass through a narrow gap or around an obstacle. Most significant when gap width ≈ wavelength. Example: Radio waves diffracting around buildings."
+    },
+    {
+      "front": "State the equation for Young's double-slit experiment.",
+      "back": "$\\lambda = \\frac{ax}{D}$<br>Where:<br>$\\lambda$ = wavelength<br>$a$ = slit separation<br>$x$ = fringe spacing<br>$D$ = slit-to-screen distance<br>Example: With $a$ = 1 mm, $x$ = 2 mm, $D$ = 2 m → $\\lambda = 1\\times10^{-6}$ m"
+    },
+    {
+      "front": "State the diffraction grating equation.",
+      "back": "$d\\sin\\theta = n\\lambda$<br>Where:<br>$d$ = slit spacing ($d = 1/N$, where N = lines per metre)<br>$\\theta$ = angle to maximum<br>$n$ = order number<br>Example: For 600 lines/mm grating with red light ($\\lambda$ = 650 nm), first order appears at $\\theta = 23^\\circ$"
+    },
+    {
+      "front": "How do you calculate the highest visible order in a diffraction grating?",
+      "back": "$n_{max} = \\frac{d}{\\lambda}$ (rounded down to nearest integer)<br>Example: If $d/\\lambda = 2.7$, then $n_{max} = 2$<br>This occurs when $\\theta = 90^\\circ$ and $\\sin\\theta = 1$"
+    },
+    {
+      "front": "How are stationary (standing) waves formed?",
+      "back": "By superposition of two progressive waves with same frequency and amplitude travelling in opposite directions. Form nodes (zero amplitude) and antinodes (maximum amplitude). Example: Vibrating guitar string."
+    },
+    {
+      "front": "What are the formulas for harmonics in a stretched string?",
+      "back": "For string length $L$ fixed at both ends:<br><strong>Fundamental:</strong> $L = \\frac{\\lambda}{2}$, $f = \\frac{v}{2L}$<br><strong>2nd harmonic:</strong> $L = \\lambda$, $f = \\frac{v}{L}$<br><strong>nth harmonic:</strong> $L = \\frac{n\\lambda}{2}$, $f_n = \\frac{nv}{2L}$"
+    },
+    {
+      "front": "What are the formulas for harmonics in an air column open at one end?",
+      "back": "For column length $L$, open at one end:<br><strong>Fundamental:</strong> $L = \\frac{\\lambda}{4}$, $f = \\frac{v}{4L}$<br><strong>3rd harmonic:</strong> $L = \\frac{3\\lambda}{4}$, $f = \\frac{3v}{4L}$<br><strong>nth harmonic:</strong> $L = \\frac{n\\lambda}{4}$, $f_n = \\frac{nv}{4L}$ (n = odd numbers only)"
+    },
+    {
+      "front": "What are the formulas for harmonics in an air column open at both ends?",
+      "back": "For column length $L$, open at both ends:<br><strong>Fundamental:</strong> $L = \\frac{\\lambda}{2}$, $f = \\frac{v}{2L}$<br><strong>2nd harmonic:</strong> $L = \\lambda$, $f = \\frac{v}{L}$<br><strong>nth harmonic:</strong> $L = \\frac{n\\lambda}{2}$, $f_n = \\frac{nv}{2L}$ (n = 1, 2, 3...)"
+    },
+    {
+      "front": "How can you experimentally determine wavelength using a diffraction grating?",
+      "back": "1. Measure distance from grating to screen ($D$)<br>2. Measure distance from centre to maxima ($h$)<br>3. Calculate $\\theta = \\tan^{-1}(\\frac{h}{D})$<br>4. Use $\\lambda = \\frac{d\\sin\\theta}{n}$<br>Reduce uncertainty by using longer $D$ or grating with more lines/mm"
+    },
+    {
+      "front": "What is the difference between coherent and incoherent waves?",
+      "back": "<strong>Coherent:</strong> Same frequency and constant phase difference (e.g., laser light)<br><strong>Incoherent:</strong> Changing phase difference (e.g., filament lamp)<br>Coherence is essential for observable interference patterns."
+    },
+    {
+      "front": "How does gap size affect diffraction?",
+      "back": "<strong>Maximum diffraction:</strong> Gap width ≈ wavelength<br><strong>Minimal diffraction:</strong> Gap width >> wavelength<br>Example: Sound waves (λ ~ m) diffract through doorways, but light (λ ~ nm) shows little diffraction."
+    }
+  ]
+},
+{
+  "topic": "9. Electricity",
+  "cards": [
+    {
+      "front": "What is electric current and what is the conventional current direction?",
+      "back": "Electric current is the rate of flow of electric charge. Conventional current flows from positive to negative terminals, opposite to electron flow. $I = Q/t$ where I is current (A), Q is charge (C), t is time (s)."
+    },
+    {
+      "front": "Define potential difference (voltage).",
+      "back": "The energy transferred per unit charge between two points. $V = W/Q$ where V is p.d. (V), W is work done/energy (J), Q is charge (C). Example: A 3V battery transfers 3J per coulomb."
+    },
+    {
+      "front": "State Ohm's Law and its conditions.",
+      "back": "For a conductor at constant temperature, current is proportional to potential difference: $V = IR$. This gives a straight line through origin on I-V graph. Resistance must remain constant."
+    },
+    {
+      "front": "Define resistance and resistivity with equations.",
+      "back": "Resistance $R = V/I$ (Ω). Resistivity $ρ$ is material property: $R = ρL/A$ where L is length (m), A is cross-sectional area (m²). Example: Doubling length doubles resistance; doubling area halves resistance."
+    },
+    {
+      "front": "Compare I-V characteristics of different components.",
+      "back": "<strong>Ohmic conductor:</strong> Straight line through origin<br><strong>Filament lamp:</strong> Curve - resistance increases with temperature<br><strong>Diode:</strong> Current only flows in forward direction<br><strong>Thermistor:</strong> Resistance decreases with temperature<br><strong>LDR:</strong> Resistance decreases with light intensity"
+    },
+    {
+      "front": "What is electrical power and what are its equations?",
+      "back": "Rate of energy transfer. $P = IV = I²R = V²/R$. Example: A 60W bulb transfers 60J per second. If voltage doubles, power quadruples (for constant R)."
+    },
+    {
+      "front": "What is drift velocity and how is it related to current?",
+      "back": "Average speed of charge carriers in a conductor. $I = nAvq$ where n is charge carrier density, A is cross-sectional area, v is drift velocity, q is charge per carrier. Example: Electrons drift slowly (~mm/s) but current flows instantly due to high n."
+    },
+    {
+      "front": "How do thermistors and LDRs work in circuits?",
+      "back": "<strong>Thermistor:</strong> Resistance decreases as temperature increases - used in thermometers, fire alarms<br><strong>LDR:</strong> Resistance decreases as light intensity increases - used in street lights, security lights<br>Both are sensory resistors used in potential divider circuits."
+    }
+  ]
+},
+{
+  "topic": "10. D.C. Circuits",
+  "cards": [
+    {
+      "front": "Define electromotive force (e.m.f.) and distinguish it from potential difference.",
+      "back": "e.m.f. is total energy supplied per coulomb by source. p.d. is energy transferred per coulomb to components. e.m.f. = terminal p.d. + lost volts. Measured with voltmeter when no current flows."
+    },
+    {
+      "front": "What is internal resistance and how does it affect circuits?",
+      "back": "Resistance inside power source causing energy loss as heat. $E = I(R + r)$ where E is e.m.f., R is load resistance, r is internal resistance. Lost volts = $Ir$. Example: Battery gets warm during use due to internal resistance."
+    },
+    {
+      "front": "State Kirchhoff's First Law (Junction Rule).",
+      "back": "Sum of currents entering junction = sum of currents leaving. $ΣI_{in} = ΣI_{out}$. Based on conservation of charge. Example: If 3A enters junction with two branches, $I_1 + I_2 = 3A$."
+    },
+    {
+      "front": "State Kirchhoff's Second Law (Loop Rule).",
+      "back": "Sum of e.m.f.s = sum of p.d.s in any closed loop. $Σε = Σ(IR)$. Based on conservation of energy. Example: In series circuit with 12V battery and two resistors: $12V = V_1 + V_2$."
+    },
+    {
+      "front": "What are the resistance formulas for series and parallel circuits?",
+      "back": "<strong>Series:</strong> $R_T = R_1 + R_2 + ...$<br><strong>Parallel:</strong> $1/R_T = 1/R_1 + 1/R_2 + ...$<br>Example: Two 10Ω resistors in series = 20Ω; in parallel = 5Ω."
+    },
+    {
+      "front": "What is a potential divider and what is its equation?",
+      "back": "Circuit that produces output voltage as fraction of input. $V_{out} = [R_2/(R_1 + R_2)] × V_{in}$. Used in volume controls, sensory circuits. Example: With R₁=20kΩ, R₂=12kΩ, V_in=8.5V: V_out=5.3V."
+    },
+    {
+      "front": "What is a potentiometer and how does it work?",
+      "back": "Variable resistor used as adjustable potential divider. Moving sliding contact changes resistance ratio, giving continuously variable output voltage. Used for comparing p.d.s and precise voltage control."
+    },
+    {
+      "front": "What is a galvanometer and how is it used in potentiometer circuits?",
+      "back": "Sensitive ammeter that detects small currents. In potentiometers, it shows null deflection (zero current) when p.d. balances cell e.m.f. Used for accurate e.m.f. measurements."
+    },
+    {
+      "front": "When is maximum power delivered to an external resistor?",
+      "back": "Maximum power transfer occurs when load resistance equals internal resistance (R = r). At this point, half the energy is delivered to load, half dissipated in source."
+    }
+  ]
+},
+{
+  "topic": "11. Particle Physics",
+  "cards": [
+    {
+      "front": "What are the three elementary particles of an atom?",
+      "back": "<li><strong>Proton:</strong> Positive charge, found inside the nucleus.</li><li><strong>Electron:</strong> Negative charge, revolves around the nucleus. Its mass is 1/1836th of a proton.</li><li><strong>Neutron:</strong> No charge, found inside the nucleus, with a mass almost the same as a proton.</li>"
+    },
+    {
+      "front": "Distinguish between Nucleon Number (A) and Proton Number (Z).",
+      "back": "<li><strong>Nucleon Number (A):</strong> Also called mass number. It is the total number of protons and neutrons in the nucleus.</li><li><strong>Proton Number (Z):</strong> Also called atomic number. It is the number of protons in the nucleus.</li>"
+    },
+    {
+      "front": "How is an element represented using atomic and mass numbers?",
+      "back": "Using the format: <br> $^{A}_{Z}X$ <br> Where <strong>X</strong> is the element symbol, <strong>A</strong> is the nucleon number, and <strong>Z</strong> is the proton number."
+    },
+    {
+      "front": "What are isotopes?",
+      "back": "Atoms of the same element that have the same number of protons but a different number of neutrons. For example, Carbon-12 ($^{12}_{6}C$) and Carbon-14 ($^{14}_{6}C$)."
+    },
+    {
+      "front": "Describe the properties of Alpha (α) particles.",
+      "back": "An alpha particle is a Helium nucleus ($^{4}_{2}He$). It has the highest ionizing potential of the three main radiation types but is the least penetrating (stopped by paper)."
+    },
+    {
+      "front": "Describe the properties of Beta (β) particles.",
+      "back": "A beta particle is a fast-moving electron ($^{0}_{-1}e$). It has a lower ionizing potential than alpha particles and is more penetrating (stopped by aluminum)."
+    },
+    {
+      "front": "Describe the properties of Gamma (γ) particles.",
+      "back": "Gamma radiation is a high-energy electromagnetic wave ($^{0}_{0}γ$). It has the lowest ionizing potential and is the most penetrating (only stopped by thick lead)."
+    },
+    {
+      "front": "Describe the process of Alpha (α) decay.",
+      "back": "The parent nucleus (X) emits an alpha particle (two protons and two neutrons) to form a new daughter nucleus (Y) with lower mass and atomic numbers.<br>$^{A}_{Z}X \\rightarrow ^{A-4}_{Z-2}Y + ^{4}_{2}He + \\text{energy}$"
+    },
+    {
+      "front": "Describe the process of Beta (β) decay.",
+      "back": "In the parent nucleus (X), a neutron changes into a proton, and an electron (beta particle) is emitted. The daughter nucleus (Y) has the same mass number but a higher atomic number.<br>$^{A}_{Z}X \\rightarrow ^{A}_{Z+1}Y + ^{0}_{-1}\\beta + \\text{energy}$"
+    },
+    {
+      "front": "Describe the process of Gamma (γ) decay.",
+      "back": "Gamma decay is the simple loss of energy from the nucleus, often occurring after alpha or beta decay. The mass and atomic numbers of the nucleus do not change.<br>$^{A}_{Z}X \\rightarrow ^{A}_{Z}Y + ^{0}_{0}\\gamma$"
+    },
+    {
+      "front": "Why is radioactivity considered a spontaneous and random process?",
+      "back": "<li><strong>Spontaneous:</strong> The decay process is not affected by external environmental factors like temperature, pressure, or humidity.</li><li><strong>Random:</strong> It is impossible to predict which specific nucleus will decay at any given time. All nuclei have an equal probability of decaying.</li>"
+    },
+    {
+      "front": "Define the half-life of a radioactive substance.",
+      "back": "The time taken for the activity or mass of a radioactive substance to decrease to half of its initial value."
+    },
+    {
+      "front": "What are fundamental particles?",
+      "back": "Particles that are not made up of any other, smaller particles. They are the basic building blocks of matter and include <strong>quarks</strong> and <strong>leptons</strong>."
+    },
+    {
+      "front": "What are the six flavors of quarks and their charges?",
+      "back": "<li><strong>Up (u):</strong> +²/₃ e</li><li><strong>Down (d):</strong> -¹/₃ e</li><li><strong>Charm (c):</strong> +²/₃ e</li><li><strong>Strange (s):</strong> -¹/₃ e</li><li><strong>Top (t):</strong> +²/₃ e</li><li><strong>Bottom (b):</strong> -¹/₃ e</li>"
+    },
+    {
+      "front": "What is the quark composition of a proton and neutron?",
+      "back": "<li><strong>Proton:</strong> uud (up, up, down) → Charge: +²/₃ + +²/₃ + -¹/₃ = +1 e</li><li><strong>Neutron:</strong> udd (up, down, down) → Charge: +²/₃ + -¹/₃ + -¹/₃ = 0 e</li>"
+    },
+    {
+      "front": "What are the six leptons and their charges?",
+      "back": "<li><strong>Electron (e⁻):</strong> -1 e</li><li><strong>Electron neutrino (νₑ):</strong> 0 e</li><li><strong>Muon (μ⁻):</strong> -1 e</li><li><strong>Muon neutrino (ν_μ):</strong> 0 e</li><li><strong>Tau (τ⁻):</strong> -1 e</li><li><strong>Tau neutrino (ν_τ):</strong> 0 e</li>"
+    },
+    {
+      "front": "What are hadrons and how are they classified?",
+      "back": "<strong>Hadrons</strong> are composite particles made up of quarks. They are classified as:<li><strong>Baryons:</strong> Made of three quarks (e.g., protons, neutrons)</li><li><strong>Mesons:</strong> Made of a quark-antiquark pair (e.g., pions, kaons)</li>"
+    },
+    {
+      "front": "What fundamental forces do leptons interact with?",
+      "back": "Leptons interact with the <strong>weak interaction, electromagnetic, and gravitational forces</strong>, but they do <strong>NOT</strong> interact with the <strong>strong nuclear force</strong>."
+    },
+    {
+      "front": "Describe the quark model of beta minus (β⁻) decay.",
+      "back": "In β⁻ decay, a <strong>neutron turns into a proton</strong> because a <strong>down quark changes into an up quark</strong>. This emits an electron and anti-electron neutrino.<br>Equation: $n \\rightarrow p + e⁻ + \\bar{ν}_e$"
+    },
+    {
+      "front": "Describe the quark model of beta plus (β⁺) decay.",
+      "back": "In β⁺ decay, a <strong>proton turns into a neutron</strong> because an <strong>up quark changes into a down quark</strong>. This emits a positron and electron neutrino.<br>Equation: $p \\rightarrow n + e⁺ + ν_e$"
+    },
+    {
+      "front": "How is charge conserved in beta decay?",
+      "back": "In β⁻ decay: Neutron (charge 0) → Proton (charge +1) + Electron (charge -1) + Anti-neutrino (charge 0) = 0 total charge.<br>In β⁺ decay: Proton (charge +1) → Neutron (charge 0) + Positron (charge +1) + Neutrino (charge 0) = +1 total charge."
+    },
+    {
+      "front": "What are anti-particles and how do they differ from particles?",
+      "back": "Anti-particles have the same mass but opposite charge compared to their corresponding particles. For example, the anti-proton has charge -1 (compared to proton's +1) and is made of anti-quarks."
+    },
+    {
+      "front": "What are anti-quarks and their charges?",
+      "back": "Anti-quarks have opposite charges to their corresponding quarks:<li><strong>Anti-up (ū):</strong> -²/₃ e</li><li><strong>Anti-down (đ):</strong> +¹/₃ e</li><li>Similarly for other flavors</li>"
+    },
+    {
+      "front": "What did Rutherford's alpha-particle scattering experiment reveal?",
+      "back": "<li>Most α-particles passed through → atom is mostly empty space</li><li>Some deflected at small angles → positive nucleus</li><li>Very few bounced back → nucleus is small and dense</li>"
+    },
+    {
+      "front": "What is the atomic mass unit (u) and its value?",
+      "back": "1 u = 1.66 × 10⁻²⁷ kg (1/12th the mass of a carbon-12 atom)<br>Proton ≈ 1 u, Neutron ≈ 1 u, Electron ≈ 0.0005 u"
+    },
+    {
+      "front": "What is conserved in nuclear equations?",
+      "back": "Both <strong>nucleon number (A)</strong> and <strong>charge (proton number Z)</strong> must be conserved.<br>Example: $^{235}_{92}U + ^{1}_{0}n \\rightarrow ^{90}_{38}Sr + ^{144}_{54}Xe + 2^{1}_{0}n$"
+    },
+    {
+      "front": "How do energy spectra differ between alpha and beta particles?",
+      "back": "<li><strong>Alpha:</strong> Discrete energy levels (specific values)</li><li><strong>Beta:</strong> Continuous energy range (shared with neutrinos)</li>"
+    },
+    {
+      "front": "What are the key conclusions from the quark model of beta decay?",
+      "back": "<li>β⁻ decay: d quark → u quark (n → p)</li><li>β⁺ decay: u quark → d quark (p → n)</li><li>Mediated by weak interaction</li><li>Always involves neutrinos</li>"
+    },
+    {
+      "front": "Calculate the number of up quarks in an iron-56 nucleus",
+      "back": "Iron-56: 26 protons (uud) + 30 neutrons (udd)<br>Up quarks = (26 × 2) + (30 × 1) = 52 + 30 = 82 up quarks"
+    },
+    {
+      "front": "What is the difference between baryons and mesons?",
+      "back": "<li><strong>Baryons:</strong> 3 quarks (proton: uud, neutron: udd)</li><li><strong>Mesons:</strong> quark-antiquark pair (pion: uđ)</li><li>Both are hadrons (made of quarks)</li>"
+    }
+  ]
+}
         ];
 
         // --- DOM Elements ---
@@ -777,4 +1351,3 @@
     </script>
 </body>
 </html>
-
